@@ -25,6 +25,7 @@ const Positioner = styled.div`
 // 너비, 그림자 설정
 const ShadowedBox = styled.div`
     width: 80vw;
+    height: 80vh;
     ${shadow(2)}
 `;
 
@@ -34,5 +35,6 @@ const Contents = styled.div`
     padding: 2rem;
     height: auto;
 `;
+
 
 export default TableWrapper;
