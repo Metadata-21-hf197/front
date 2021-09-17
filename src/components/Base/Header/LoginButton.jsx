@@ -6,7 +6,7 @@ import { shadow } from '../../../lib/styleUtil';
 
 
 const LoginButton = () => (
-    <BorderedButton to="/auth/login">
+    <BorderedButton to="/user/login">
         로그인 / 회원가입
     </BorderedButton>
 );
