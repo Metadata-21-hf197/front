@@ -58,7 +58,7 @@ const HeaderContents = styled.div`
 
 // 로고
 const Logo = styled.div`
-    font-size: 1.4rem;
+    font-size: 2.0rem;
     letter-spacing: 2px;
     color: ${oc.blue[4]};
     font-family: 'Rajdhani';

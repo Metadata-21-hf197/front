@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import oc from 'open-color';
 import { shadow } from '../../lib/styleUtil';
 import { Link } from 'react-router-dom';
 
 const TableWrapper = ({children}) => (
+    <>
     <Positioner>
         <ShadowedBox>
             <Contents>
@@ -12,6 +12,12 @@ const TableWrapper = ({children}) => (
             </Contents>
         </ShadowedBox>
     </Positioner>
+    <ButtonPositioner>
+        <Link to="/table/word">word</Link>
+        <Link to="/table/domain">Domain</Link>
+        <Link to="/table/term">Term</Link>
+    </ButtonPositioner>
+    </>
 );
 
 // 화면의 중앙에 위치시킨다
@@ -33,8 +39,12 @@ const ShadowedBox = styled.div`
 const Contents = styled.div`
     background: white;
     padding: 2rem;
+    height: 100%;
     height: auto;
 `;
 
-
+const ButtonPositioner = styled.div`
+    position: absolute;
+    transform: translate(20%, 50%);
+`;
 export default TableWrapper;

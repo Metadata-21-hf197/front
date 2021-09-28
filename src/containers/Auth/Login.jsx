@@ -3,7 +3,7 @@ import { AuthButton, AuthContent,InputWithLabel, RightAlignedLink } from '../../
 import Axios from 'axios';
 function Login ({history}) {
 
-    const [memberName, setMemberName] = useState();
+    const [username, setMemberName] = useState();
     const [password, setPassword] = useState();
 
     const onClickLogin = () => {
@@ -18,18 +18,18 @@ function Login ({history}) {
         });
     }
 
-    const handleLogin = () => {
+    /*const handleLogin = () => {
         history.push('/table/word');
-    };
+    };*/
 
         return (
             <AuthContent title="로그인">
                 <form action="/user/login" method="post">
-                <InputWithLabel label="이메일" value={memberName} name="email" placeholder="이메일"/>
+                <InputWithLabel label="아이디" value={username} name="username" placeholder="아이디"/>
                 <InputWithLabel label="비밀번호" value={password} name="password" placeholder="비밀번호" type="password"/>
                 </form>
                 <AuthButton onClick={onClickLogin}>로그인</AuthButton>
-                <RightAlignedLink to="/auth/register">회원가입</RightAlignedLink>
+                <RightAlignedLink to="/user/join">회원가입</RightAlignedLink>
             </AuthContent>
         );
 }
