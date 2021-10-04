@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import { AuthButton, AuthContent,InputWithLabel, RightAlignedLink } from '../../components/Auth';
 import Axios from 'axios';
+import axios from 'axios';
 function Login ({history}) {
 
     const [username, setMemberName] = useState();
     const [password, setPassword] = useState();
 
-    const onClickLogin = () => {
+    const handleID = (e) => {
+      setMemberName(e.target.value)
+    }
+    const handlePw = (e) => {
+      setPassword(e.target.value)
+    }
+
+    /*const onClickLogin = () => {
         Axios.post('/user/login').then((response) => {
           if(response.data){
             console.log(response.data);
@@ -16,6 +24,22 @@ function Login ({history}) {
             console.log('fail');
           }
         });
+    }*/
+   
+    const onClickLogin = () => {
+      axios.post('http://localhost:8080/user/login', null, {
+        params: {
+          'username': username,
+          'password': password
+        }
+      })
+      .then(res => {
+        console.log(res);
+        history.push('/table/word');
+      })
+      .catch((error) => {
+        console.log(error);
+      })
     }
 
     /*const handleLogin = () => {
@@ -25,10 +49,10 @@ function Login ({history}) {
         return (
             <AuthContent title="로그인">
                 <form action="/user/login" method="post">
-                <InputWithLabel label="아이디" value={username} name="username" placeholder="아이디"/>
-                <InputWithLabel label="비밀번호" value={password} name="password" placeholder="비밀번호" type="password"/>
+                  <InputWithLabel label="아이디" value={username} name="username" placeholder="아이디"/>
+                  <InputWithLabel label="비밀번호" value={password} name="password" placeholder="비밀번호" type="password"/>
+                  <AuthButton onClick={onClickLogin}>로그인</AuthButton>
                 </form>
-                <AuthButton onClick={onClickLogin}>로그인</AuthButton>
                 <RightAlignedLink to="/user/join">회원가입</RightAlignedLink>
             </AuthContent>
         );

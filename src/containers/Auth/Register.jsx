@@ -1,8 +1,8 @@
-import React, { Component, useState } from 'react';
-import { useStore } from 'react-redux';
+import React, { useState } from 'react';
 import { AuthContent, InputWithLabel, AuthButton, RightAlignedLink } from '../../components/Auth';
+import Axios from 'axios';
 
-function Register () {
+function Register ({history}) {
 
     const [memberName, setMemberName] = useState();
     const [password, setPassword] = useState();
