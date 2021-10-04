@@ -27,7 +27,7 @@ function Login ({history}) {
     }*/
    
     const onClickLogin = () => {
-      axios.post('http://localhost:8080/user/login', null, {
+      axios.post('/user/login', null, {
         params: {
           'username': username,
           'password': password
@@ -35,7 +35,7 @@ function Login ({history}) {
       })
       .then(res => {
         console.log(res);
-        history.push('/table/word');
+        history.push('http://localhost:3000/table/word');
       })
       .catch((error) => {
         console.log(error);
@@ -49,8 +49,8 @@ function Login ({history}) {
         return (
             <AuthContent title="로그인">
                 <form action="/user/login" method="post">
-                  <InputWithLabel label="아이디" value={username} name="username" placeholder="아이디"/>
-                  <InputWithLabel label="비밀번호" value={password} name="password" placeholder="비밀번호" type="password"/>
+                  <InputWithLabel label="아이디" value={username} onChange={handleID} name="username" placeholder="아이디"/>
+                  <InputWithLabel label="비밀번호" value={password} onChange={handlePw} name="password" placeholder="비밀번호" type="password"/>
                   <AuthButton onClick={onClickLogin}>로그인</AuthButton>
                 </form>
                 <RightAlignedLink to="/user/join">회원가입</RightAlignedLink>

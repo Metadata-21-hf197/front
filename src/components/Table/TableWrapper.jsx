@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { shadow } from '../../lib/styleUtil';
 import { Link } from 'react-router-dom';
+import oc from 'open-color';
 
 const TableWrapper = ({children}) => (
     <>
@@ -13,9 +14,9 @@ const TableWrapper = ({children}) => (
         </ShadowedBox>
     </Positioner>
     <ButtonPositioner>
-        <Link to="/table/word">word</Link>
-        <Link to="/table/domain">Domain</Link>
-        <Link to="/table/term">Term</Link>
+        <BtnLink to="/table/word">word</BtnLink>
+        <BtnLink to="/table/domain">Domain</BtnLink>
+        <BtnLink to="/table/term">Term</BtnLink>
     </ButtonPositioner>
     </>
 );
@@ -30,8 +31,8 @@ const Positioner = styled.div`
 
 // 너비, 그림자 설정
 const ShadowedBox = styled.div`
-    width: 80vw;
-    height: 80vh;
+    width: auto;
+    height: auto;
     ${shadow(2)}
 `;
 
@@ -39,12 +40,21 @@ const ShadowedBox = styled.div`
 const Contents = styled.div`
     background: white;
     padding: 2rem;
-    height: 100%;
     height: auto;
 `;
 
 const ButtonPositioner = styled.div`
-    position: absolute;
-    transform: translate(20%, 50%);
+    position: fixed;
+    top: 10%;
+    transform: translate(30px, 30px);
+`;
+
+const BtnLink = styled(Link)`
+    color: ${oc.cyan[6]};
+    border: 2px solid ${oc.cyan[6]};
+    display: block;
+    margin: 10px;
+    font-size: 20px;
+    padding: 5px;
 `;
 export default TableWrapper;

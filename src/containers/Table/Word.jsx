@@ -3,6 +3,12 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 function Word () {
 
+    const options = {
+        exportCSVText: 'export',
+        insertText: 'insert',
+        deleteText: 'delete'
+    }
+
     const products = [{
         id: 1,
         shortname: "APT",
@@ -35,13 +41,15 @@ function Word () {
 
     return (
         
-        <BootstrapTable data={ products } height='120' scrollTop={ 'Bottom' }>
-            <TableHeaderColumn dataField='id' isKey>ID</TableHeaderColumn>
-            <TableHeaderColumn dataField='shortname'>약자</TableHeaderColumn>
-            <TableHeaderColumn dataField='engname'>영문명</TableHeaderColumn>
-            <TableHeaderColumn dataField='korname'>한글명</TableHeaderColumn>
-            <TableHeaderColumn dataField='index'>구분자</TableHeaderColumn>
-            <TableHeaderColumn dataField='exp'>설명</TableHeaderColumn>
+        <BootstrapTable data={ products } search={true} multiColumnSearch={true}
+         
+        options={options} insertRow deleteRow exportCSV >
+            <TableHeaderColumn width='100' dataField='id' isKey>ID</TableHeaderColumn>
+            <TableHeaderColumn width='100'dataField='shortname'>약자</TableHeaderColumn>
+            <TableHeaderColumn width='200' dataField='engname'>영문명</TableHeaderColumn>
+            <TableHeaderColumn width='200' dataField='korname'>한글명</TableHeaderColumn>
+            <TableHeaderColumn width='100' dataField='index'>구분자</TableHeaderColumn>
+            <TableHeaderColumn width='300' dataField='exp'>설명</TableHeaderColumn>
         </BootstrapTable>
 
     );
