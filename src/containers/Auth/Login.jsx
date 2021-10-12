@@ -35,7 +35,7 @@ function Login ({history}) {
       })
       .then(res => {
         console.log(res);
-        history.push('http://localhost:3000/table/word');
+        history.push('/table/word');
       })
       .catch((error) => {
         console.log(error);
