@@ -6,7 +6,8 @@ function Login ({history}) {
 
     const [username, setMemberName] = useState();
     const [password, setPassword] = useState();
-
+    const authenticated = username != null;
+    
     const handleID = (e) => {
       setMemberName(e.target.value)
     }
