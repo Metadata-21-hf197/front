@@ -13,18 +13,6 @@ function Login ({history}) {
     const handlePw = (e) => {
       setPassword(e.target.value)
     }
-
-    /*const onClickLogin = () => {
-        Axios.post('/user/login').then((response) => {
-          if(response.data){
-            console.log(response.data);
-            // 현재 응답값은 널.
-            history.push('/table/word');
-          } else {
-            console.log('fail');
-          }
-        });
-    }*/
    
     const onClickLogin = () => {
       axios.post('/user/login', null, {
@@ -38,13 +26,11 @@ function Login ({history}) {
         history.push('/table/word');
       })
       .catch((error) => {
-        console.log(error);
+        alert('로그인 실패');
+        setMemberName('');
+        setPassword('');
       })
     }
-
-    /*const handleLogin = () => {
-        history.push('/table/word');
-    };*/
 
         return (
             <AuthContent title="로그인">

@@ -20,9 +20,9 @@ function Word () {
     const [state, refetch] = useData(getDatas, []); 
     const { loading, data: datas, error } = state;
     
-    if (loading) return alert('로딩중입니다.');
-    if (error) return alert('에러가 발생했습니다.');
-    if (!datas) return null;
+    //if (loading) return alert('로딩중입니다.');
+    //if (error) return console.log('에러가 발생했습니다.'); 
+    //if (!datas) return null;
 
     const products = [{
         id: 1,
