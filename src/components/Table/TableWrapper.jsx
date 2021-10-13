@@ -56,5 +56,10 @@ const BtnLink = styled(Link)`
     margin: 10px;
     font-size: 20px;
     padding: 5px;
+    &:hover {
+        background: ${oc.cyan[6]};
+        color: white;
+        ${shadow(1)}
+    }
 `;
 export default TableWrapper;

@@ -1,13 +1,28 @@
+import axios from 'axios';
 import React from 'react';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import useData from '../../redux/modules/useData';
+
+async function getDatas() {
+    const res = await axios.get(
+        '//스트링 워드 링크'
+    );
+    return res.data;
+}
 
 function Word () {
-
     const options = {
         exportCSVText: 'export',
         insertText: 'insert',
         deleteText: 'delete'
     }
+
+    const [state, refetch] = useData(getDatas, []); 
+    const { loading, data: datas, error } = state;
+    
+    if (loading) return alert('로딩중입니다.');
+    if (error) return alert('에러가 발생했습니다.');
+    if (!datas) return null;
 
     const products = [{
         id: 1,
@@ -42,7 +57,6 @@ function Word () {
     return (
         
         <BootstrapTable data={ products } search={true} multiColumnSearch={true}
-         
         options={options} insertRow deleteRow exportCSV >
             <TableHeaderColumn width='100' dataField='id' isKey>ID</TableHeaderColumn>
             <TableHeaderColumn width='100'dataField='shortname'>약자</TableHeaderColumn>
