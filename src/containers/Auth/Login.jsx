@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { AuthButton, AuthContent,InputWithLabel, RightAlignedLink } from '../../components/Auth';
-import Axios from 'axios';
 import axios from 'axios';
+
 function Login ({history}) {
 
     const [username, setMemberName] = useState();
     const [password, setPassword] = useState();
-    const authenticated = username != null;
     
     const handleID = (e) => {
       setMemberName(e.target.value)

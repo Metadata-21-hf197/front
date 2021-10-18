@@ -14,6 +14,7 @@ export function loginRequest(username, password) {
     };
 }
 
+//로그인 액션함수 정의
 export function login() {
     return {
         type: AUTH_LOGIN
