@@ -1,14 +1,14 @@
 import axios from 'axios';
 import React from 'react';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-import useData from '../../redux/modules/useData';
 
-async function getDatas() {
+
+/*async function getDatas() {
     const res = await axios.get(
         '//스트링 워드 링크'
     );
     return res.data;
-}
+}*/
 
 function Word () {
     const options = {
@@ -17,8 +17,8 @@ function Word () {
         deleteText: 'delete'
     }
 
-    const [state, refetch] = useData(getDatas, []); 
-    const { loading, data: datas, error } = state;
+    //const [state, refetch] = useData(getDatas, []); 
+    //const { loading, data: datas, error } = state;
     
     //if (loading) return alert('로딩중입니다.');
     //if (error) return console.log('에러가 발생했습니다.'); 
