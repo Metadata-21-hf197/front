@@ -6,5 +6,6 @@ import auth from './auth';
 import { penderReducer } from 'redux-pender';
 export default combineReducers({
     base,
-    auth
+    auth,
+    pender: penderReducer
 });
