@@ -13,8 +13,8 @@ const configureStore = (initialState) => {
 
     // hot-reloading 를 위한 코드
     if(module.hot) {
-        module.hot.accept('./modules', () => {
-            const nextRootReducer = require('./modules').default;
+        module.hot.accept('../modules', () => {
+            const nextRootReducer = require('../modules').default;
             store.replaceReducer(nextRootReducer);
         });
     }
