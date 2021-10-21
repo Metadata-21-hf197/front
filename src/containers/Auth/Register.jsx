@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, history } from 'react';
 import { AuthContent, InputWithLabel, AuthButton, RightAlignedLink, AuthError } from '../../components/Auth';
 import Axios from 'axios';
 import axios from 'axios';
@@ -6,6 +6,8 @@ import * as authActions  from '../../redux/modules/auth';
 import { connect } from 'react-redux';
 import {isEmail, isLength, isAlphanumeric, isEmpty} from 'validator';
 import {bindActionCreators} from 'redux';
+import storage from '../../lib/storage';
+import * as userActions from '../../redux/modules/users';
 
 class Register extends Component {
 
@@ -39,10 +41,11 @@ class Register extends Component {
 
   validate = {
     memberName: (value) => {
-      if(!isAlphanumeric(value) || isLength(value, { min:4, max:15})) {
+      if(!isAlphanumeric(value) || !isLength(value, { min:4, max:15})) {
         this.setError('아이디는 4~15글자의 알파벳 혹은 숫자로 이뤄져야 합니다.');
         return false;
       }
+      this.setError(null);
       return true;
     },
     password: (value) => {
@@ -50,7 +53,7 @@ class Register extends Component {
           this.setError('비밀번호를 6자 이상 입력하세요.');
           return false;
       }
-      this.setError(null); // 이메일과 아이디는 에러 null 처리를 중복확인 부분에서 하게 됩니다
+      this.setError(null); 
       return true;
     },
     passwordConfirm: (value) => {
@@ -66,22 +69,53 @@ class Register extends Component {
           this.setError('잘못된 이메일 형식 입니다.');
           return false;
       }
+      this.setError(null);
       return true;
     },
     userRole: (value) => {
-      if(!isEmpty(value)) {
+      if(isEmpty(value)) {
         this.setError('공백 입니다. 직무를 입력해주세요.');
         return false;
       }
+      this.setError(null);
       return true;
     }
   }
 
+  handleLocalRegister = async () => {
+    const { form, AuthActions, error, histroy } = this.props;
+    const { memberName, password, passwordConfirm, email, userRole } = form.toJS();
+
+    const { validate } = this;
+    if(error) return;
+    if(!validate['memberName'](memberName)
+    || !validate['password'](password)
+    || !validate['passwordConfirm'](passwordConfirm)
+    || !validate['email'](email)
+    || !validate['userRole'](userRole)){
+      return;
+    }
+
+    try {
+      await AuthActions.localRegister({
+        memberName, password, email, userRole
+      });
+      const loggedInfo = this.props.result.toJS();
+
+      storage.set('loggedInfo',loggedInfo);
+      userActions.setLoggedInfo(loggedInfo);
+      userActions.setValidated(true);
+      console.log(loggedInfo);
+      history.push('/');
+    } catch(e) {
+      this.setError('알 수 없는 에러가 발생했습니다.')
+    }
+  }
 
   render() {
     const { error } = this.props;
     const { memberName, password, passwordConfirm, email, userRole } = this.props.form.toJS();
-    const { handleChange } = this;
+    const { handleChange, handleLocalRegister } = this;
     return (
       <AuthContent title="회원가입">
         <form action="/user/join" method="post">
@@ -94,7 +128,7 @@ class Register extends Component {
             error && <AuthError>{error}</AuthError>
           }
         </form>
-          <AuthButton>회원가입</AuthButton>
+          <AuthButton onClick={handleLocalRegister}>회원가입</AuthButton>
           <RightAlignedLink to="/user/login">로그인</RightAlignedLink>
       </AuthContent>
   );
@@ -104,9 +138,11 @@ class Register extends Component {
 export default connect(
   (state) => ({
       form: state.auth.getIn(['register', 'form']),
-      error: state.auth.getIn(['register', 'error'])
+      error: state.auth.getIn(['register', 'error']),
+      result: state.auth.get('result')
   }),
   (dispatch) => ({
-      AuthActions: bindActionCreators(authActions, dispatch)
+      AuthActions: bindActionCreators(authActions, dispatch),
+      UserActions: bindActionCreators(userActions, dispatch)
   })
 )(Register);

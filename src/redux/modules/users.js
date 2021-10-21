@@ -12,11 +12,10 @@ const CHECK_STATUS = 'user/CHECK_STATUS'; // 현재 로그인상태 확인
 export const setLoggedInfo = createAction(SET_LOGGED_INFO); // loggedInfo
 export const setValidated = createAction(SET_VALIDATED); // validated
 export const logout = createAction(LOGOUT, AuthAPI.logout);
-export const checkStatus = createAction(CHECK_STATUS, AuthAPI.checkStatus);
+//export const checkStatus = createAction(CHECK_STATUS, AuthAPI.checkStatus);
 
 const initialState = Map({
     loggedInfo: Map({ // 현재 로그인중인 유저의 정보
-        thumbnail: null,
         username: null
     }),
     logged: false, // 현재 로그인중인지 알려준다
