@@ -1,7 +1,5 @@
-import React, { Component, history } from 'react';
+import React, { Component} from 'react';
 import { AuthContent, InputWithLabel, AuthButton, RightAlignedLink, AuthError } from '../../components/Auth';
-import Axios from 'axios';
-import axios from 'axios';
 import * as authActions  from '../../redux/modules/auth';
 import { connect } from 'react-redux';
 import {isEmail, isLength, isAlphanumeric, isEmpty} from 'validator';
@@ -83,7 +81,7 @@ class Register extends Component {
   }
 
   handleLocalRegister = async () => {
-    const { form, AuthActions, error, histroy } = this.props;
+    const { form, AuthActions, error, history } = this.props;
     const { memberName, password, passwordConfirm, email, userRole } = form.toJS();
 
     const { validate } = this;
@@ -102,12 +100,13 @@ class Register extends Component {
       });
       const loggedInfo = this.props.result.toJS();
 
-      storage.set('loggedInfo',loggedInfo);
-      userActions.setLoggedInfo(loggedInfo);
-      userActions.setValidated(true);
+      //storage.set('loggedInfo',loggedInfo);
+      //userActions.setLoggedInfo(loggedInfo);
+      //userActions.setValidated(true);
       console.log(loggedInfo);
-      history.push('/');
+      history.push('/user/login');
     } catch(e) {
+      console.log(e);
       this.setError('알 수 없는 에러가 발생했습니다.')
     }
   }
