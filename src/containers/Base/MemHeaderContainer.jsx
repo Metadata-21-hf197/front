@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Header, { MemberIcon, MemberIconm } from '../../components/Base/Header';
-import { connect } from 'react-redux';
+import Header, { MemberIcon} from '../../components/Base/Header';
 
 class MemHeaderContainer extends Component {
     render() {

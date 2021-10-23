@@ -4,7 +4,6 @@ import * as authActions  from '../../redux/modules/auth';
 import { connect } from 'react-redux';
 import {isEmail, isLength, isAlphanumeric, isEmpty} from 'validator';
 import {bindActionCreators} from 'redux';
-import storage from '../../lib/storage';
 import * as userActions from '../../redux/modules/users';
 
 class Register extends Component {

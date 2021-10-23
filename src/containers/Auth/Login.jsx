@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { AuthButton, AuthContent,InputWithLabel, RightAlignedLink, AuthError } from '../../components/Auth';
-import axios from 'axios';
 import * as authActions  from '../../redux/modules/auth';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';

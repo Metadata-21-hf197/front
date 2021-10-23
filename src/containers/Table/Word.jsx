@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
@@ -30,28 +29,28 @@ function Word () {
         engname: "Advanced Persistent Threat",
         korname: "지능형 타깃 지속 공격",
         index: "1541",
-        exp: "ㄱㄴㄷㄻㅊ"
+        meaning: "ㄱㄴㄷㄻㅊ"
     }, {
         id: 2,
         shortname: "APT",
         engname: "Advanced Persistent Threat",
         korname: "지능형 타깃 지속 공격",
         index: "1541",
-        exp: "ㄱㄴㄷㄻㅊ"
+        meaning: "ㄱㄴㄷㄻㅊ"
     }, {
         id: 3,
         shortname: "APT",
         engname: "Advanced Persistent Threat",
         korname: "지능형 타깃 지속 공격",
         index: "1541",
-        exp: "ㄱㄴㄷㄻㅊ"
+        meaning: "ㄱㄴㄷㄻㅊ"
     }, {
         id: 4,
         shortname: "APT",
         engname: "Advanced Persistent Threat",
         korname: "지능형 타깃 지속 공격",
         index: "1541",
-        exp: "ㄱㄴㄷㄻㅊ"
+        meaning: "ㄱㄴㄷㄻㅊ"
     }];
 
     return (
@@ -63,7 +62,7 @@ function Word () {
             <TableHeaderColumn width='200' dataField='engname'>영문명</TableHeaderColumn>
             <TableHeaderColumn width='200' dataField='korname'>한글명</TableHeaderColumn>
             <TableHeaderColumn width='100' dataField='index'>구분자</TableHeaderColumn>
-            <TableHeaderColumn width='300' dataField='exp'>설명</TableHeaderColumn>
+            <TableHeaderColumn width='300' dataField='meaning'>설명</TableHeaderColumn>
         </BootstrapTable>
 
     );
