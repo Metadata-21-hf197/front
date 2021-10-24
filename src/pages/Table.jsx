@@ -15,6 +15,7 @@ class Table extends Component {
                 <Route path="/table/domain" component={Domain}/>
                 <Route path="/table/term" component={Term}/>
                 <Route path="/table/approval" component={Approval}/>
+                <Route path="/table/approval/detail"/>
             </TableWrapper>
         )
     }

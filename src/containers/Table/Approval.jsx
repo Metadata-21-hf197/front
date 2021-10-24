@@ -1,6 +1,6 @@
 import React from 'react';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
-
+// 결재 목록 보여주는 페이지 -> 결재 승인하는 상세페이지로 들어감.
 function Approval () {
 
     const products = [{
