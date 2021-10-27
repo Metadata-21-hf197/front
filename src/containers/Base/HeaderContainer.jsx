@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header, { LoginButton } from '../../components/Base/Header';
+import Header, { LoginButton, MemberIcon } from '../../components/Base/Header';
 import { connect } from 'react-redux';
 import  * as userActions from '../../redux/modules/users';
 import { bindActionCreators } from 'redux';
@@ -29,7 +29,7 @@ class HeaderContainer extends Component {
             <Header>
                 { user.get('logged')
                     ? (<div>
-                        {user.getIn(['loggedInfo', 'username'])} <BorderedButton onClick={this.handleLogout}>로그아웃</BorderedButton>
+                        {user.getIn(['loggedInfo', 'username'])} <MemberIcon/><BorderedButton onClick={this.handleLogout}>로그아웃</BorderedButton>
                     </div>)
                     : <LoginButton/>
                 }
