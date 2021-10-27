@@ -14,9 +14,11 @@ const TableWrapper = ({children}) => (
         </ShadowedBox>
     </Positioner>
     <ButtonPositioner>
+        <Text>메뉴</Text>
         <BtnLink to="/table/word">word</BtnLink>
         <BtnLink to="/table/domain">Domain</BtnLink>
         <BtnLink to="/table/term">Term</BtnLink>
+        <BtnLink to="/table/approval">Approval</BtnLink>
     </ButtonPositioner>
     </>
 );
@@ -44,7 +46,8 @@ const Contents = styled.div`
 `;
 
 const ButtonPositioner = styled.div`
-    position: fixed;
+    position: absolute;
+    border: 2px solid ${oc.cyan[8]};
     top: 10%;
     transform: translate(30px, 30px);
 `;
@@ -56,10 +59,20 @@ const BtnLink = styled(Link)`
     margin: 10px;
     font-size: 20px;
     padding: 5px;
+    text-align:center;
     &:hover {
         background: ${oc.cyan[6]};
         color: white;
         ${shadow(1)}
     }
+`;
+
+const Text = styled.p`
+    color: black;
+    display: block;
+    margin: 10px;
+    font-size: 20px;
+    padding: 5px;
+    text-align:center;
 `;
 export default TableWrapper;
