@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { Home, Auth, Table } from './pages';
-import Mypage from './pages/mypage';
+import Page from './pages/Page';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import storage from './lib/storage';
@@ -33,7 +33,7 @@ componentDidMount() {
         <Route exact path="/" component={Home}/>
         <Route path="/user" component={Auth}/>
         <Route path="/table" component={Table}/>
-        <Route path="/mypage" component={Mypage}/>
+        <Route path="/mypage" component={Page}/>
       </div>
     );
   }

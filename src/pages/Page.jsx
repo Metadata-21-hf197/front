@@ -1,16 +1,16 @@
 // 테이블 페이지
 import React, { Component } from 'react';
+import Mypage from '../containers/Private/MyPage';
 
-
-class Mypage extends Component {
+class Page extends Component {
 
     render() {
         return (
             <>
-            <p> 마이페이지 </p>
+            <Mypage/>
             </>
         )
     }
 }
 
-export default Mypage;
+export default Page;
