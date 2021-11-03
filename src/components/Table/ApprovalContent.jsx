@@ -7,13 +7,19 @@ const Title = styled.div`
     font-weight: 500;
     color: ${oc.gray[8]};
     margin-bottom: 1rem;
+    width: 50wh;
 `;
 
+const ConBox = styled.div`
+float:left;
+margin:5px;
+height:auto;
+`;
 const ApprovalContent = ({title, children}) => (
-    <div>
+    <ConBox>
         <Title>{title}</Title>
         {children}
-    </div>
+    </ConBox>
 );
 
 export default ApprovalContent;

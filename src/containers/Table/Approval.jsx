@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import styled from 'styled-components';
 import { ApprovalWithLabel } from '../../components/Table';
 import ApprovalButton from '../../components/Table/ApprovalButton';
 import ApprovalContent from '../../components/Table/ApprovalContent';
@@ -9,21 +9,30 @@ class Approval extends Component {
 
     render() {
         return (
-            <div>
+            <Box1>
                 <ApprovalContent title="기존">
-                    <ApprovalWithLabel>id</ApprovalWithLabel>
-                    <ApprovalWithLabel>shortName</ApprovalWithLabel>
-                    <ApprovalWithLabel>engName</ApprovalWithLabel>
-                    <ApprovalWithLabel>korName</ApprovalWithLabel>
+                    <ApprovalWithLabel label="id">id</ApprovalWithLabel>
+                    <ApprovalWithLabel label="short">shortName</ApprovalWithLabel>
+                    <ApprovalWithLabel label="eng">engName</ApprovalWithLabel>
+                    <ApprovalWithLabel label="kor">korName</ApprovalWithLabel>
                 </ApprovalContent>
                 <ApprovalContent title="수정">
-
+                    <ApprovalWithLabel label="id">id</ApprovalWithLabel>
+                    <ApprovalWithLabel label="short">shortName</ApprovalWithLabel>
+                    <ApprovalWithLabel label="eng">engName</ApprovalWithLabel>
+                    <ApprovalWithLabel label="kor">korName</ApprovalWithLabel>
                 </ApprovalContent>
-                <ApprovalButton>승인</ApprovalButton>
-                <ApprovalButton>삭제</ApprovalButton>
-            </div>
+                <ApprovalContent>
+                    <ApprovalButton>승인</ApprovalButton>
+                    <ApprovalButton>삭제</ApprovalButton>
+                </ApprovalContent>
+            </Box1>
         )
     }
 }
+
+const Box1 = styled.div`
+    overflow:auto;
+`;
 
 export default Approval;

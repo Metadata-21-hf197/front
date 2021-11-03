@@ -43,6 +43,7 @@ const Contents = styled.div`
     background: white;
     padding: 2rem;
     height: auto;
+    width: auto;
 `;
 
 const ButtonPositioner = styled.div`

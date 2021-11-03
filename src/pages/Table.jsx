@@ -1,9 +1,9 @@
 // 테이블 페이지
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { Word, Domain, Term} from '../containers/Table';
+import { Word, Domain, Term, Approval} from '../containers/Table';
 import { TableWrapper } from '../components/Table';
-import Approval from '../containers/Table/Approval';
+
 
 
 class Table extends Component {

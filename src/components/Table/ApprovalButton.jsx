@@ -12,12 +12,14 @@ const Wrapper = styled.div`
     margin-top: 1rem;
     padding-top: 0.6rem;
     padding-bottom: 0.5rem;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
 
     background: ${oc.blue[4]};
     color: white;
 
     text-align: center;
-    font-size: 1.25rem;
+    font-size: 2.25rem;
     font-weight: 500;
 
     cursor: pointer;
