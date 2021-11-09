@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-
+import ManageContent from '../../components/Private/ManageContent';
 
 function MyPage () {
-    const [list, setLists] = useState(null);
+    const [lists, setLists] = useState(null);
 
     useEffect (()=> {
         const fetchLists = async () => {
@@ -20,9 +20,11 @@ function MyPage () {
     },[]);
 
     return (
-        <div>
-            <p>마이페이지</p>
-        </div>
+        <ManageContent title="유저페이지">
+            <div>
+                
+            </div>
+        </ManageContent>
     );
 }
 

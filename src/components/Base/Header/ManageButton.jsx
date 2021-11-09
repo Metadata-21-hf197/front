@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import { shadow } from '../../../lib/styleUtil';
 
 
-const MemberIcon = () => (
-    <BorderedButton to="/manage/user">
-        마이페이지
+const ManageButton = () => (
+    <BorderedButton to="/manage/admin">
+        관리자
     </BorderedButton>
 );
 
@@ -34,4 +34,4 @@ const BorderedButton = styled(Link)`
     }
 `;
 
-export default MemberIcon;
+export default ManageButton;

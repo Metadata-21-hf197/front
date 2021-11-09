@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { Home, Auth, Table } from './pages';
-import Page from './pages/Page';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import storage from './lib/storage';
 import * as userActions from './redux/modules/users';
 import HeaderContainer from './containers/Base/HeaderContainer';
+import Manage from './pages/Manage';
 
 class App extends Component {
   initializeUserInfo = async () => {
@@ -33,7 +33,7 @@ componentDidMount() {
         <Route exact path="/" component={Home}/>
         <Route path="/user" component={Auth}/>
         <Route path="/table" component={Table}/>
-        <Route path="/mypage" component={Page}/>
+        <Route path="/mypage" component={Manage}/>
       </div>
     );
   }
