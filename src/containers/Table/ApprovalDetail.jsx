@@ -20,12 +20,14 @@ function ApprovalDetail () {
                     <ApprovalWithLabel label="short">shortName</ApprovalWithLabel>
                     <ApprovalWithLabel label="eng">engName</ApprovalWithLabel>
                     <ApprovalWithLabel label="kor">korName</ApprovalWithLabel>
+                    <ApprovalWithLabel label="meaning">Meaning</ApprovalWithLabel>
                 </ApprovalContent>
                 <ApprovalContent title="수정">
                     <ApprovalWithLabel label="id">id</ApprovalWithLabel>
                     <ApprovalWithLabel label="short">shortName</ApprovalWithLabel>
                     <ApprovalWithLabel label="eng">engName</ApprovalWithLabel>
                     <ApprovalWithLabel label="kor">korName</ApprovalWithLabel>
+                    <ApprovalWithLabel label="meaning">Meaning</ApprovalWithLabel>
                 </ApprovalContent>
                 <ApprovalContent>
                     <ApprovalButton onClick={confirmClick}>승인</ApprovalButton>

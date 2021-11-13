@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {BootstrapTable, TableHeaderColumn, InsertButton, DeleteButton} from 'react-bootstrap-table';
-import oc from 'open-color';
+
 // 도메인, 생성 수정 삭제
+// 수정은 넘어가게 하는것이 좋을듯
 class Domain extends Component {
 
     handleInsertButtonClick = (onClick) => {
@@ -17,6 +18,22 @@ class Domain extends Component {
             className='my-custom-class'
             btnGlyphicon='glyphicon-edit'
             onClick={ () => this.handleInsertButtonClick(onClick) }/>
+        );
+    }
+    
+    handleDeleteButtonClick = (onClick) => {
+        console.log('delete click event');
+        onClick();
+    }
+    
+    createCustomDeleteButton = (onClick) => {
+        return (
+          <DeleteButton
+            btnText='Delete'
+            btnContextual='btn-warning'
+            className='my-custom-class'
+            btnGlyphicon='glyphicon-edit'
+            onClick={ () => this.handleDeleteButtonClick(onClick) }/>
         );
     }
 
@@ -43,9 +60,9 @@ class Domain extends Component {
     render (){
         const options = {
             exportCSVText: 'export',
-            updateBtn: this.createCustomUpdateButton,
             insertBtn: this.createCustomInsertButton,
-            insertModalFooter: this.createCustomModalFooter
+            insertModalFooter: this.createCustomModalFooter,
+            deleteBtn: this.createCustomDeleteButton
         };
     
         const selectRowProp = {
@@ -80,7 +97,7 @@ class Domain extends Component {
 
         return (
             <BootstrapTable data={ products } search={true} multiColumnSearch={true}
-            options={options} selectRow={ selectRowProp } insertRow  exportCSV >
+            options={options} selectRow={ selectRowProp } insertRow deleteRow exportCSV pagination>
                 <TableHeaderColumn width='100' dataField='id' isKey>ID</TableHeaderColumn>
                 <TableHeaderColumn width='100'dataField='shortname'>약자</TableHeaderColumn>
                 <TableHeaderColumn width='200' dataField='engname'>영문명</TableHeaderColumn>

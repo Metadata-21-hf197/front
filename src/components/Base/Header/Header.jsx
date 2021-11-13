@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
+import { Link } from 'react-router-dom';
 import { shadow, media } from '../../../lib/styleUtil';
 
 
@@ -9,7 +10,7 @@ const Header = ({children}) => {
         <Positioner>
             <WhiteBackground>
                 <HeaderContents>
-                    <Logo>MetaData</Logo>
+                    <Logo to="/">MetaData</Logo>
                     <Spacer/>
                     {children}
                 </HeaderContents>
@@ -57,7 +58,7 @@ const HeaderContents = styled.div`
 `;
 
 // 로고
-const Logo = styled.div`
+const Logo = styled(Link)`
     font-size: 2.0rem;
     letter-spacing: 2px;
     color: ${oc.blue[4]};

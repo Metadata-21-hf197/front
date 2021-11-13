@@ -9,8 +9,13 @@ function onRowSelect(row, isSelected, e) {
     }
     console.log(e);
     alert(`is selected: ${isSelected}, ${rowStr}`);
-  }
+}
+
 class Approval extends Component {
+
+    state = {
+        datas: []
+    }
 
     handleUpdateButtonClick = () => {
         const { history } = this.props;
