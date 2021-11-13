@@ -6,8 +6,8 @@ import { shadow } from '../../../lib/styleUtil';
 
 
 const MemberIcon = () => (
-    <BorderedButton to="/manage/user">
-        마이페이지
+    <BorderedButton to="/mypage">
+        수정목록
     </BorderedButton>
 );
 

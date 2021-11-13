@@ -121,7 +121,7 @@ class Register extends Component {
           <InputWithLabel label="비밀번호" value={password} onChange={handleChange} name="password" placeholder="비밀번호" type="password"/>
           <InputWithLabel label="비밀번호 확인" value={passwordConfirm} onChange={handleChange} name="passwordConfirm" placeholder="비밀번호 확인" type="password"/>
           <InputWithLabel label="이메일" value={email} onChange={handleChange} name="email" placeholder="이메일"/>
-          <InputWithLabel label="직무" value={userRole} onChange={handleChange} name="userRole" placeholder="직무"/>
+          <InputWithLabel label="직무" value={userRole} onChange={handleChange} name="userRole" placeholder="USER OR ADMIN"/>
           {
             error && <AuthError>{error}</AuthError>
           }

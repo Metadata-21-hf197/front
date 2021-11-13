@@ -20,7 +20,7 @@ function MyPage () {
     },[]);
 
     return (
-        <ManageContent title="유저페이지">
+        <ManageContent title="수정목록">
             <div>
                 
             </div>

@@ -1,31 +1,35 @@
 import React, { Component } from 'react';
-import {BootstrapTable, TableHeaderColumn, InsertModalFooter, InsertButton} from 'react-bootstrap-table';
+import {BootstrapTable, TableHeaderColumn, InsertButton, DeleteButton} from 'react-bootstrap-table';
 import oc from 'open-color';
 // 결재 목록 보여주는 페이지 -> 결재 승인하는 상세페이지로 들어감.
 class Approval extends Component {
 
-    handleInsertButtonClick = (onClick) => {
-        // Custom your onClick event here,
-        // it's not necessary to implement this function if you have no any process before onClick
-        console.log('This is my custom function for InserButton click event');
+    handleUpdateButtonClick = (onClick) => {
+        console.log('update click event');
         onClick();
-      }
+    }
     
-    createCustomInsertButton = (onClick) => {
+    createCustomUpdateButton = (onClick) => {
         return (
           <InsertButton
             btnText='CustomInsertText'
             btnContextual='btn-warning'
             className='my-custom-class'
             btnGlyphicon='glyphicon-edit'
-            onClick={ () => this.handleInsertButtonClick(onClick) }
-            >Insert</InsertButton>
+            onClick={ () => this.handleUpdateButtonClick(onClick) }
+            >Update</InsertButton>
         );
     }
     
+    getFieldValue() {
+        const newRow = {};
+        this.props.columns.forEach((column, i) => {
+          newRow[column.field] = this.refs[column.field].value;
+        }, this);
+        return newRow;
+    }
+
     handleSave(save) {
-        // Custom your onSave event here,
-        // it's not necessary to implement this function if you have no any process before save
         console.log('save clcik');
         fetch("http://localhost:3000/approval/insert", {
             method:"POST",
@@ -44,25 +48,40 @@ class Approval extends Component {
         save();
     }
     
-    createCustomModalFooter = (closeModal, save) => {
+    createCustomModalFooter = (onClose, onSave) => {
+        const style = {
+          backgroundColor: '#ffffff'
+        };
         return (
-          <InsertModalFooter
+          <div className='modal-footer' style={ style }>
+            <button className='btn btn-xs btn-info' onClick={ onClose }>Leave</button>
+            <button className='btn btn-xs btn-danger' onClick={ onSave }>Confirm</button>
+          </div>
+        );
+    }
+
+    handleDeleteButtonClick = (onClick) => {
+        console.log('Delete click event');
+        onClick();
+    }
+    
+    createCustomDeleteButton = (onClick) => {
+        return (
+          <DeleteButton
+            btnText='CustomDeleteText'
+            btnContextual='btn-success'
             className='my-custom-class'
-            saveBtnText='CustomSaveText'
-            closeBtnText='CustomCloseText'
-            closeBtnContextual='btn-warning'
-            saveBtnContextual='btn-success'
-            closeBtnClass='my-close-btn-class'
-            saveBtnClass='my-save-btn-class'
-            onSave={ () => this.handleSave(save) }/>
+            btnGlyphicon='glyphicon-edit'
+            onClick={ e => this.handleDeleteButtonClick(onClick) }>delete</DeleteButton>
         );
     }
 
     render (){
         const options = {
             exportCSVText: 'export',
-            insertBtn: this.createCustomInsertButton,
-            insertModalFooter: this.createCustomModalFooter
+            insertBtn: this.createCustomUpdateButton,
+            insertModalFooter: this.createCustomModalFooter,
+            deleteBtn: this.createCustomDeleteButton
         };
     
         const selectRowProp = {
@@ -97,7 +116,7 @@ class Approval extends Component {
 
         return (
             <BootstrapTable data={ products } search={true} multiColumnSearch={true}
-            options={options} selectRow={ selectRowProp } insertRow  exportCSV >
+            options={options} selectRow={ selectRowProp } insertRow deleteRow  exportCSV >
                 <TableHeaderColumn width='100' dataField='id' isKey>ID</TableHeaderColumn>
                 <TableHeaderColumn width='100'dataField='shortname'>약자</TableHeaderColumn>
                 <TableHeaderColumn width='200' dataField='engname'>영문명</TableHeaderColumn>

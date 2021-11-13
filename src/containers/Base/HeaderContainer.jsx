@@ -8,7 +8,6 @@ import styled from 'styled-components';
 import oc from 'open-color';
 import { Link } from 'react-router-dom';
 import { shadow } from '../../lib/styleUtil';
-import ManageButton from '../../components/Base/Header/ManageButton';
 
 class HeaderContainer extends Component {
     handleLogout = async () => {
@@ -30,7 +29,7 @@ class HeaderContainer extends Component {
             <Header>
                 { user.get('logged')
                     ? (<div>
-                        {user.getIn(['loggedInfo', 'username'])} <ManageButton/><MemberIcon/><BorderedButton onClick={this.handleLogout}>로그아웃</BorderedButton>
+                        {user.getIn(['loggedInfo', 'username'])} <MemberIcon/><BorderedButton onClick={this.handleLogout}>로그아웃</BorderedButton>
                     </div>)
                     : <LoginButton/>
                 }

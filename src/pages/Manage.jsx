@@ -9,7 +9,7 @@ class Manage extends Component {
     render() {
         return (
             <ChangeWrapper>
-                <Route path="/mypage" component={MyPage}/>
+                <MyPage/>
             </ChangeWrapper>
         )
     }
