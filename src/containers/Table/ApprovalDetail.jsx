@@ -6,6 +6,13 @@ import ApprovalButton from '../../components/Table/ApprovalButton';
 import ApprovalContent from '../../components/Table/ApprovalContent';
 
 function ApprovalDetail () {
+
+    const confirmClick = () => {
+        //결재 승인 버튼
+    }
+    const denyClick = () => {
+        //결재 거절 버튼
+    }
     return (
         <Box1>
                 <ApprovalContent title="기존">
@@ -21,8 +28,8 @@ function ApprovalDetail () {
                     <ApprovalWithLabel label="kor">korName</ApprovalWithLabel>
                 </ApprovalContent>
                 <ApprovalContent>
-                    <ApprovalButton>승인</ApprovalButton>
-                    <ApprovalButton>삭제</ApprovalButton>
+                    <ApprovalButton onClick={confirmClick}>승인</ApprovalButton>
+                    <ApprovalButton onClick={denyClick}>삭제</ApprovalButton>
                 </ApprovalContent>
             </Box1>
     )

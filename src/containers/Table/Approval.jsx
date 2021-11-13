@@ -1,78 +1,34 @@
 import React, { Component } from 'react';
-import {BootstrapTable, TableHeaderColumn, InsertButton, DeleteButton} from 'react-bootstrap-table';
-import oc from 'open-color';
+import {BootstrapTable, TableHeaderColumn, InsertButton} from 'react-bootstrap-table';
+
 // 결재 목록 보여주는 페이지 -> 결재 승인하는 상세페이지로 들어감.
+function onRowSelect(row, isSelected, e) {
+    let rowStr = '';
+    for (const prop in row) {
+      rowStr += prop + ': "' + row[prop] + '"';
+    }
+    console.log(e);
+    alert(`is selected: ${isSelected}, ${rowStr}`);
+  }
 class Approval extends Component {
 
-    handleUpdateButtonClick = (onClick) => {
-        console.log('update click event');
-        onClick();
+    handleUpdateButtonClick = () => {
+        const { history } = this.props;
+        try {
+            history.push('approval/detail');
+        } catch (e) {
+            console.log("not move");
+        }
     }
     
     createCustomUpdateButton = (onClick) => {
         return (
           <InsertButton
-            btnText='CustomInsertText'
+            btnText='Detail'
             btnContextual='btn-warning'
             className='my-custom-class'
             btnGlyphicon='glyphicon-edit'
-            onClick={ () => this.handleUpdateButtonClick(onClick) }
-            >Update</InsertButton>
-        );
-    }
-    
-    getFieldValue() {
-        const newRow = {};
-        this.props.columns.forEach((column, i) => {
-          newRow[column.field] = this.refs[column.field].value;
-        }, this);
-        return newRow;
-    }
-
-    handleSave(save) {
-        console.log('save clcik');
-        fetch("http://localhost:3000/approval/insert", {
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json",
-            },
-        })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-        })
-        .catch((e) => {
-            console.log(e);
-        }
-        )
-        save();
-    }
-    
-    createCustomModalFooter = (onClose, onSave) => {
-        const style = {
-          backgroundColor: '#ffffff'
-        };
-        return (
-          <div className='modal-footer' style={ style }>
-            <button className='btn btn-xs btn-info' onClick={ onClose }>Leave</button>
-            <button className='btn btn-xs btn-danger' onClick={ onSave }>Confirm</button>
-          </div>
-        );
-    }
-
-    handleDeleteButtonClick = (onClick) => {
-        console.log('Delete click event');
-        onClick();
-    }
-    
-    createCustomDeleteButton = (onClick) => {
-        return (
-          <DeleteButton
-            btnText='CustomDeleteText'
-            btnContextual='btn-success'
-            className='my-custom-class'
-            btnGlyphicon='glyphicon-edit'
-            onClick={ e => this.handleDeleteButtonClick(onClick) }>delete</DeleteButton>
+            onClick={ () => this.handleUpdateButtonClick(onClick) }/>
         );
     }
 
@@ -80,12 +36,11 @@ class Approval extends Component {
         const options = {
             exportCSVText: 'export',
             insertBtn: this.createCustomUpdateButton,
-            insertModalFooter: this.createCustomModalFooter,
-            deleteBtn: this.createCustomDeleteButton
         };
     
         const selectRowProp = {
-            mode:'radio'
+            mode:'radio',
+            onSelect: onRowSelect
         };
     
         const products = [{
@@ -116,7 +71,7 @@ class Approval extends Component {
 
         return (
             <BootstrapTable data={ products } search={true} multiColumnSearch={true}
-            options={options} selectRow={ selectRowProp } insertRow deleteRow  exportCSV >
+            options={options} selectRow={ selectRowProp } insertRow exportCSV pagination >
                 <TableHeaderColumn width='100' dataField='id' isKey>ID</TableHeaderColumn>
                 <TableHeaderColumn width='100'dataField='shortname'>약자</TableHeaderColumn>
                 <TableHeaderColumn width='200' dataField='engname'>영문명</TableHeaderColumn>
