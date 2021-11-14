@@ -1,7 +1,7 @@
 // 결재 상세 페이지
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { ApprovalWithLabel } from '../../components/Table';
+import { ApprovalWithLabel, ApprovalInputLabel } from '../../components/Table';
 import ApprovalButton from '../../components/Table/ApprovalButton';
 import ApprovalContent from '../../components/Table/ApprovalContent';
 
@@ -27,11 +27,10 @@ class ApprovalDetail extends Component {
                         <ApprovalWithLabel label="meaning" val={location.props.m}></ApprovalWithLabel>
                     </ApprovalContent>
                     <ApprovalContent title="수정">
-                        <ApprovalWithLabel label="id">id</ApprovalWithLabel>
-                        <ApprovalWithLabel label="short">shortName</ApprovalWithLabel>
-                        <ApprovalWithLabel label="eng">engName</ApprovalWithLabel>
-                        <ApprovalWithLabel label="kor">korName</ApprovalWithLabel>
-                        <ApprovalWithLabel label="meaning">Meaning</ApprovalWithLabel>
+                        <ApprovalInputLabel label="short" value={location.props.s} type="text"/>
+                        <ApprovalInputLabel label="eng" value={location.props.e} type="text"/>
+                        <ApprovalInputLabel label="kor" value={location.props.k} type="text"/>
+                        <ApprovalInputLabel label="meaning" value={location.props.m} type="text"/>
                     </ApprovalContent>
                     <ApprovalContent>
                         <ApprovalButton onClick={this.confirmClick}>승인</ApprovalButton>
@@ -41,7 +40,9 @@ class ApprovalDetail extends Component {
         )
     }
 }
+
 const Box1 = styled.div`
     overflow:auto;
 `;
+
 export default ApprovalDetail;
