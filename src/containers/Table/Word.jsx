@@ -2,6 +2,12 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import {BootstrapTable, TableHeaderColumn, InsertButton, DeleteButton} from 'react-bootstrap-table';
 
+function onRowSelect(row, e) {
+    let rowStr = row.id;
+    console.log(e);
+    return rowStr;
+}
+
 class Word extends Component {
 
     state = {
@@ -32,7 +38,7 @@ class Word extends Component {
     createCustomInsertButton = (onClick) => {
         return (
           <InsertButton
-            btnText='Insert'
+            btnText='생성신청'
             btnContextual='btn-warning'
             className='my-custom-class'
             btnGlyphicon='glyphicon-edit'
@@ -41,27 +47,21 @@ class Word extends Component {
     }
     //삭제 버튼 아이디 날려서 
     handleDeleteButtonClick = (onClick) => {
-        fetch("http://localhost:3000/table/word/delete", {
-            method:"DELETE",
-            headers:{
-                "Content-Type":"application/json",
-            },
-        })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-        })
-        .catch((e) => {
-            console.log(e);
-        }
-        )
-        onClick();
+        const k = onRowSelect
+        axios
+          .delete(`/word/id=${k}`)
+          .then(({ data }) => {
+              console.log(data);
+          })
+          .catch(e => {  // API 호출이 실패한 경우
+            console.error(e);  // 에러표시
+          });
     }
     
     createCustomDeleteButton = (onClick) => {
         return (
           <DeleteButton
-            btnText='Delete'
+            btnText='삭제신청'
             btnContextual='btn-warning'
             className='my-custom-class'
             btnGlyphicon='glyphicon-edit'
@@ -71,7 +71,7 @@ class Word extends Component {
 
     // confirm 클릭 메소드
     handleClickConfirm = () => {
-        console.log('confirm');
+        
     }
 
     createCustomModalFooter = (onClose, onSave) => {
@@ -95,7 +95,8 @@ class Word extends Component {
         };
     
         const selectRowProp = {
-            mode:'radio'
+            mode:'radio',
+            onSelect:onRowSelect
         };
     
         const { lists } = this.state;
