@@ -1,13 +1,34 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import {BootstrapTable, TableHeaderColumn, InsertButton, DeleteButton} from 'react-bootstrap-table';
 
 class Term extends Component {
 
+    state = {
+        lists: [
+            
+        ]
+    };
+    loadData = async () => {
+        axios
+          .get("/table/term")
+          .then(({ data }) => {
+            this.setState({ 
+              lists: data.termList
+            });
+          })
+          .catch(e => {  // API 호출이 실패한 경우
+            console.error(e);  // 에러표시
+          });
+      };
+    componentWillMount() {
+        this.loadData();
+    }
     handleInsertButtonClick = (onClick) => {
         console.log('insert click event');
         onClick();
     }
-
+    
     createCustomInsertButton = (onClick) => {
         return (
           <InsertButton
@@ -18,9 +39,22 @@ class Term extends Component {
             onClick={ () => this.handleInsertButtonClick(onClick) }/>
         );
     }
-
+    //삭제 버튼 아이디 날려서 
     handleDeleteButtonClick = (onClick) => {
-        console.log('delete click event');
+        fetch("http://localhost:3000/table/word/delete", {
+            method:"DELETE",
+            headers:{
+                "Content-Type":"application/json",
+            },
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+        })
+        .catch((e) => {
+            console.log(e);
+        }
+        )
         onClick();
     }
     
@@ -35,14 +69,11 @@ class Term extends Component {
         );
     }
 
-    getFieldValue() {
-        const newRow = {};
-        this.props.columns.forEach((column, i) => {
-          newRow[column.field] = this.refs[column.field].value;
-        }, this);
-        return newRow;
+    // confirm 클릭 메소드
+    handleClickConfirm = () => {
+        console.log('confirm');
     }
-    
+
     createCustomModalFooter = (onClose, onSave) => {
         const style = {
           backgroundColor: '#ffffff'
@@ -50,7 +81,7 @@ class Term extends Component {
         return (
           <div className='modal-footer' style={ style }>
             <button className='btn btn-xs btn-info' onClick={ onClose }>Leave</button>
-            <button className='btn btn-xs btn-danger' onClick={ onSave }>Confirm</button>
+            <button className='btn btn-xs btn-danger' onClick={ this.handleClickConfirm }>Confirm</button>
           </div>
         );
     }
@@ -67,39 +98,15 @@ class Term extends Component {
             mode:'radio'
         };
     
-        const products = [{
-            id: 1,
-            shortname: "APT",
-            engname: "Advanced Persistent Threat",
-            korname: "지능형 타깃 지속 공격",
-            meaning: "ㄱㄴㄷㄻㅊ"
-        }, {
-            id: 2,
-            shortname: "APT",
-            engname: "Advanced Persistent Threat",
-            korname: "지능형 타깃 지속 공격",
-            meaning: "ㄱㄴㄷㄻㅊ"
-        }, {
-            id: 3,
-            shortname: "APT",
-            engname: "Advanced Persistent Threat",
-            korname: "지능형 타깃 지속 공격",
-            meaning: "ㄱㄴㄷㄻㅊ"
-        }, {
-            id: 4,
-            shortname: "APT",
-            engname: "Advanced Persistent Threat",
-            korname: "지능형 타깃 지속 공격",
-            meaning: "ㄱㄴㄷㄻㅊ"
-        }];
-
+        const { lists } = this.state;
+        console.log(lists);
         return (
-            <BootstrapTable data={ products } search={true} multiColumnSearch={true}
+            <BootstrapTable data={lists} search={true} multiColumnSearch={true}
             options={options} selectRow={ selectRowProp } insertRow deleteRow exportCSV pagination>
                 <TableHeaderColumn width='100' dataField='id' isKey>ID</TableHeaderColumn>
-                <TableHeaderColumn width='100'dataField='shortname'>약자</TableHeaderColumn>
-                <TableHeaderColumn width='200' dataField='engname'>영문명</TableHeaderColumn>
-                <TableHeaderColumn width='200' dataField='korname'>한글명</TableHeaderColumn>
+                <TableHeaderColumn width='100'dataField='shortName'>약자</TableHeaderColumn>
+                <TableHeaderColumn width='200' dataField='engName'>영문명</TableHeaderColumn>
+                <TableHeaderColumn width='200' dataField='korName'>한글명</TableHeaderColumn>
                 <TableHeaderColumn width='300' dataField='meaning'>설명</TableHeaderColumn>
             </BootstrapTable>
     
