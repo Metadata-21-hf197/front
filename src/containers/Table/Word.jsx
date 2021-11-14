@@ -1,8 +1,25 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import {BootstrapTable, TableHeaderColumn, InsertButton, DeleteButton} from 'react-bootstrap-table';
 
 class Word extends Component {
 
+    componentWillMount() {
+        fetch("http://localhost:3000/table/word", {
+            method:"GET",
+            headers:{
+                "Content-Type":"application/json",
+            },
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+        })
+        .catch((e) => {
+            console.log(e);
+        }
+        )
+    }
     handleInsertButtonClick = (onClick) => {
         console.log('insert click event');
         onClick();
