@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {BootstrapTable, TableHeaderColumn, InsertButton} from 'react-bootstrap-table';
+import { Link } from 'react-router-dom';
 
 // 결재 목록 보여주는 페이지 -> 결재 승인하는 상세페이지로 들어감.
-function onRowSelect(row, isSelected, e) {
-    let rowStr = '';
-    for (const prop in row) {
-      rowStr += prop + ': "' + row[prop] + '"';
-    }
-    console.log(e);
-    alert(`is selected: ${isSelected}, ${rowStr}`);
+let m_id, m_kor, m_eng, m_short, m_mean;
+function onRowSelect(row, e) {
+    m_id = row.approvalId;
+    m_kor = row.korName;
+    m_eng = row.engName;
+    m_short = row.shortName;
+    m_mean = row.meaning;
+    console.log(m_id,m_kor,m_eng,m_short,m_mean);
 }
 
 class Approval extends Component {
@@ -31,6 +33,7 @@ class Approval extends Component {
             console.error(e);  // 에러표시
           });
       };
+
     componentWillMount() {
         this.loadData();
     }
@@ -38,7 +41,16 @@ class Approval extends Component {
     handleUpdateButtonClick = () => {
         const { history } = this.props;
         try {
-            history.push('approval/detail');
+            history.push({
+                pathname:'approval/detail',
+                props:{
+                    id:m_id,
+                    k:m_kor,
+                    e:m_eng,
+                    s:m_short,
+                    m:m_mean
+                }
+            });
         } catch (e) {
             console.log("not move");
         }
@@ -83,6 +95,5 @@ class Approval extends Component {
         );
     }
 }
-
 
 export default Approval;
