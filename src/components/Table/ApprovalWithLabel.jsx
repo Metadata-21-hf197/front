@@ -23,14 +23,15 @@ const Label = styled.div`
 `;
 
 const Value = styled.div`
-    width: 100px;
+    width: auto;
     border: 2px solid ${oc.gray[3]};
     outline: none;
     border-radius: 0px;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
-    height:50px;
+    height:auto;
+
 `;
 
 export default ApprovalWithLabel;

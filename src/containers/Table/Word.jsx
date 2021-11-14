@@ -2,12 +2,14 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import {BootstrapTable, TableHeaderColumn, InsertButton, DeleteButton} from 'react-bootstrap-table';
 
-let k_id;
+let m_id, m_kor, m_eng, m_short, m_mean;
 function onRowSelect(row, e) {
-    let rowStr = row.id;
-    k_id=row.id;
-    console.log(e);
-    return rowStr;
+    m_id = row.approvalId;
+    m_kor = row.korName;
+    m_eng = row.engName;
+    m_short = row.shortName;
+    m_mean = row.meaning;
+    console.log(m_id,m_kor,m_eng,m_short,m_mean);
 }
 
 class CustomInsertModal extends React.Component {
@@ -127,7 +129,7 @@ class Word extends Component {
     //삭제 버튼 아이디 날려서 
     handleDeleteButtonClick = () => { 
         axios
-          .delete(`/word/${k_id}`)
+          .delete(`/word/${m_id}`)
           .then(({ data }) => {
               console.log(data);
               alert('삭제 신청이 되었습니다');
@@ -158,14 +160,34 @@ class Word extends Component {
       );
     }
 
+    onRowClick = (row) => {
+      console.log(row + 'is click');
+      const { history } =this.props;
+      try {
+            history.push({
+                pathname:'word/detail',
+                props:{
+                    id:row.id,
+                    k:row.korName,
+                    e:row.engName,
+                    s:row.shortName,
+                    m:row.meaning
+                }
+            });
+        } catch (e) {
+            console.log("not move");
+        }
+    }
+
     render (){
         const options = {
             exportCSVText: 'export',
-            insertBtn: this.createCustomInsertButton,
+            insertBtn: this.createCustomInsertButton, 
             deleteBtn: this.createCustomDeleteButton,
             sizePerPage: 5,
             sizePerPageList: [ 5, 15, 30 ],
-            insertModal:this.createCustomModal
+            insertModal:this.createCustomModal,
+            onRowClick:this.onRowClick
         };
     
         const selectRowProp = {
