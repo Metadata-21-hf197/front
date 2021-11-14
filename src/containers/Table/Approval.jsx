@@ -62,7 +62,7 @@ class Approval extends Component {
         };
     
         const selectRowProp = {
-            mode:'radio',
+            mode:'checkbox',
             onSelect: onRowSelect
         };
     
@@ -71,8 +71,9 @@ class Approval extends Component {
 
         return (
             <BootstrapTable data={ lists } search={true} multiColumnSearch={true}
+            scrollTop={'Bottom'}
             options={options} selectRow={ selectRowProp } insertRow exportCSV pagination >
-                <TableHeaderColumn width='100' dataField='approvalid' isKey>ID</TableHeaderColumn>
+                <TableHeaderColumn width='100' dataField='approvalId' isKey>ID</TableHeaderColumn>
                 <TableHeaderColumn width='100'dataField='shortName'>약자</TableHeaderColumn>
                 <TableHeaderColumn width='200' dataField='engName'>영문명</TableHeaderColumn>
                 <TableHeaderColumn width='200' dataField='korName'>한글명</TableHeaderColumn>
