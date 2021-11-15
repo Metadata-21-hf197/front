@@ -39,17 +39,12 @@ class WordDetail extends Component {
             .then((data) => {
               console.log(data);
             })
-            .catch((error) => console.log("Error"));
-    }
-
-    denyClick = () => {
-        //결재 거절 버튼
+            .catch((e) => console.log(e));
     }
 
     render (){
         const { location } = this.props;
         u_id = location.props.id;
-        console.log(location);
         return (
             <Box1>
                     <ApprovalContent title="기존">
@@ -60,14 +55,13 @@ class WordDetail extends Component {
                         <ApprovalWithLabel label="meaning" val={location.props.m}></ApprovalWithLabel>
                     </ApprovalContent>
                     <ApprovalContent title="수정">
-                        <ApprovalInputLabel label="short" value={location.props.s} onChange={this.handleChange} name="s_name" type="text"/>
-                        <ApprovalInputLabel label="eng" value={location.props.e} onChange={this.handleChange} name="e_name" type="text"/>
-                        <ApprovalInputLabel label="kor" value={location.props.k} onChange={this.handleChange} name="k_name" type="text"/>
-                        <ApprovalInputLabel label="meaning" value={location.props.m} onChange={this.handleChange} name="m_mean" type="text"/>
+                        <ApprovalInputLabel label="short" value={this.state.s_name} onChange={this.handleChange} name="s_name" type="text"/>
+                        <ApprovalInputLabel label="eng" value={this.state.e_name} onChange={this.handleChange} name="e_name" type="text"/>
+                        <ApprovalInputLabel label="kor" value={this.state.k_name} onChange={this.handleChange} name="k_name" type="text"/>
+                        <ApprovalInputLabel label="meaning" value={this.state.m_mean} onChange={this.handleChange} name="m_mean" type="text"/>
                     </ApprovalContent>
                     <ApprovalContent>
-                        <ApprovalButton onClick={this.confirmClick}>승인</ApprovalButton>
-                        <ApprovalButton onClick={this.denyClick}>삭제</ApprovalButton>
+                        <ApprovalButton onClick={this.confirmClick}>수정신청</ApprovalButton>
                     </ApprovalContent>
                 </Box1>
         )

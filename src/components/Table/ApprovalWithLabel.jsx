@@ -27,11 +27,10 @@ const Value = styled.div`
     border: 2px solid ${oc.gray[3]};
     outline: none;
     border-radius: 0px;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     height:auto;
-
 `;
 
 export default ApprovalWithLabel;

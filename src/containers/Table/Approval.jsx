@@ -4,14 +4,14 @@ import {BootstrapTable, TableHeaderColumn, InsertButton} from 'react-bootstrap-t
 import { Link } from 'react-router-dom';
 
 // 결재 목록 보여주는 페이지 -> 결재 승인하는 상세페이지로 들어감.
-let m_id, m_kor, m_eng, m_short, m_mean;
+let m_id, m_type, m_sta, m_wtype, m_user;
 function onRowSelect(row, e) {
     m_id = row.approvalId;
-    m_kor = row.korName;
-    m_eng = row.engName;
-    m_short = row.shortName;
-    m_mean = row.meaning;
-    console.log(m_id,m_kor,m_eng,m_short,m_mean);
+    m_type = row.approvalType;
+    m_sta = row.approvalStatus;
+    m_wtype = row.wordType;
+    m_user = row.createUser;
+    
 }
 
 class Approval extends Component {
@@ -45,10 +45,10 @@ class Approval extends Component {
                 pathname:'approval/detail',
                 props:{
                     id:m_id,
-                    k:m_kor,
-                    e:m_eng,
-                    s:m_short,
-                    m:m_mean
+                    type:m_type,
+                    sta:m_sta,
+                    wtype:m_wtype,
+                    user:m_user
                 }
             });
         } catch (e) {
@@ -71,6 +71,8 @@ class Approval extends Component {
         const options = {
             exportCSVText: 'export',
             insertBtn: this.createCustomUpdateButton,
+            sizePerPage: 5,
+            sizePerPageList: [ 5, 15, 30 ],
         };
     
         const selectRowProp = {
@@ -86,10 +88,10 @@ class Approval extends Component {
             scrollTop={'Bottom'}
             options={options} selectRow={ selectRowProp } insertRow exportCSV pagination >
                 <TableHeaderColumn width='100' dataField='approvalId' isKey>ID</TableHeaderColumn>
-                <TableHeaderColumn width='100'dataField='shortName'>약자</TableHeaderColumn>
-                <TableHeaderColumn width='200' dataField='engName'>영문명</TableHeaderColumn>
-                <TableHeaderColumn width='200' dataField='korName'>한글명</TableHeaderColumn>
-                <TableHeaderColumn width='300' dataField='meaning'>설명</TableHeaderColumn>
+                <TableHeaderColumn width='100'dataField='approvalType'>타입</TableHeaderColumn>
+                <TableHeaderColumn width='200' dataField='approvalStatus'>상태</TableHeaderColumn>
+                <TableHeaderColumn width='200' dataField='wordType'>타입</TableHeaderColumn>
+                <TableHeaderColumn width='200' dataField='createUser'>이름</TableHeaderColumn>
             </BootstrapTable>
     
         );

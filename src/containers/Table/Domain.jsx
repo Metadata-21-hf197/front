@@ -163,8 +163,8 @@ class Domain extends Component {
             exportCSVText: 'export',
             insertBtn: this.createCustomInsertButton,
             deleteBtn: this.createCustomDeleteButton,
-            sizePerPage: 5,
-            sizePerPageList: [ 5, 15, 30 ],
+            sizePerPage: 10,
+            sizePerPageList: [ 10, 15, 30 ],
             insertModal:this.createCustomModal
         };
     
@@ -182,7 +182,7 @@ class Domain extends Component {
                 <TableHeaderColumn width='100'dataField='shortName'>약자</TableHeaderColumn>
                 <TableHeaderColumn width='200' dataField='engName'>영문명</TableHeaderColumn>
                 <TableHeaderColumn width='200' dataField='korName'>한글명</TableHeaderColumn>
-                <TableHeaderColumn width='300' dataField='meaning'>설명</TableHeaderColumn>
+                
             </BootstrapTable>
         );
     }
