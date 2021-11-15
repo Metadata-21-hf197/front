@@ -12,50 +12,81 @@ class ApprovalDetail extends Component {
     state = {
         lists: [
             
+        ],
+        b_lists:[
+
         ]
     };
 
     loadData = async () => {
+        const { location } = this.props;
+        m_id = location.props.p_id;
+        console.log(m_id);
         axios
           .get(`/table/approval/${m_id}`)
           .then(({ data }) => {
             this.setState({ 
-              lists: data.approval
+              lists: data.approval,
+              b_lists: data.basic
             });
+            console.log(data);
           })
           .catch(e => {  // API 호출이 실패한 경우
             console.error(e);  // 에러표시
           });
       };
 
+    componentWillMount() {
+        this.loadData();
+    }
     confirmClick = () => {
+        const {history} = this.props;
         //결재 승인 버튼
         // /word/{wordId} put
+        axios
+          .put(`/approval/confirm/${m_id}`)
+          .then(({ data }) => {
+            console.log(data);
+            alert('승인되었습니다.')
+            history.goBack();
+          })
+          .catch(e => {  // API 호출이 실패한 경우
+            console.error(e);  // 에러표시
+          });
     }
     denyClick = () => {
+        const {history} = this.props;
         //결재 거절 버튼
+        axios
+          .put('`/approval/deny/${m_id}`')
+          .then(({ data }) => {
+            console.log(data);
+            alert('거절되었습니다.')
+            history.goBack();
+          })
+          .catch(e => {  // API 호출이 실패한 경우
+            console.error(e);  // 에러표시
+          });
     }
 
-    render (){
-        const { location } = this.props;
-        console.log(location);
-        m_id = location.props.id;
-        const { lists } = this.state;
+    render (){ 
+        const { lists, b_lists } = this.state;
         console.log(lists);
+        console.log(b_lists);
         return (
             <Box1>
                     <ApprovalContent title="기존">
-                        <ApprovalWithLabel label="id" val={location.props.id}></ApprovalWithLabel>
-                        <ApprovalWithLabel label="type" val={location.props.type}></ApprovalWithLabel>
-                        <ApprovalWithLabel label="status" val={location.props.sta}></ApprovalWithLabel>
-                        <ApprovalWithLabel label="wordType" val={location.props.wtype}></ApprovalWithLabel>
-                        <ApprovalWithLabel label="User" val={location.props.user}></ApprovalWithLabel>
+                        <ApprovalWithLabel label="id" val={b_lists.id}></ApprovalWithLabel>
+                        <ApprovalWithLabel label="kor" val={b_lists.korName} ></ApprovalWithLabel>
+                        <ApprovalWithLabel label="eng" val={b_lists.engName}></ApprovalWithLabel>
+                        <ApprovalWithLabel label="short" val={b_lists.shortName}></ApprovalWithLabel>
+                        <ApprovalWithLabel label="meaning" val={b_lists.meaning}></ApprovalWithLabel>
                     </ApprovalContent>
                     <ApprovalContent title="수정">
-                        <ApprovalInputLabel label="type"  type="text"/>
-                        <ApprovalInputLabel label="status"  type="text"/>
-                        <ApprovalInputLabel label="wordType"  type="text"/>
-                        <ApprovalInputLabel label="User"  type="text"/>
+                        <ApprovalInputLabel label="kor" value={lists.korName} type="text"/>
+                        <ApprovalInputLabel label="eng" value={lists.engName}  type="text"/>
+                        <ApprovalInputLabel label="short" value={lists.shortName} type="text"/>
+                        <ApprovalInputLabel label="meaning" value={lists.meaning} type="text"/>
                     </ApprovalContent>
                     <ApprovalContent>
                         <ApprovalButton onClick={this.confirmClick}>승인</ApprovalButton>

@@ -4,14 +4,9 @@ import {BootstrapTable, TableHeaderColumn, InsertButton} from 'react-bootstrap-t
 import { Link } from 'react-router-dom';
 
 // 결재 목록 보여주는 페이지 -> 결재 승인하는 상세페이지로 들어감.
-let m_id, m_type, m_sta, m_wtype, m_user;
+let m_id;
 function onRowSelect(row, e) {
     m_id = row.approvalId;
-    m_type = row.approvalType;
-    m_sta = row.approvalStatus;
-    m_wtype = row.wordType;
-    m_user = row.createUser;
-    
 }
 
 class Approval extends Component {
@@ -44,11 +39,7 @@ class Approval extends Component {
             history.push({
                 pathname:'approval/detail',
                 props:{
-                    id:m_id,
-                    type:m_type,
-                    sta:m_sta,
-                    wtype:m_wtype,
-                    user:m_user
+                    p_id:m_id
                 }
             });
         } catch (e) {
