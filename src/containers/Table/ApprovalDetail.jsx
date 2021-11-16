@@ -58,7 +58,7 @@ class ApprovalDetail extends Component {
         const {history} = this.props;
         //결재 거절 버튼
         axios
-          .put('`/approval/deny/${m_id}`')
+          .put(`/approval/deny/${m_id}`)
           .then(({ data }) => {
             console.log(data);
             alert('거절되었습니다.')

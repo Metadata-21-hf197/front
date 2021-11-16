@@ -46,7 +46,6 @@ class CustomInsertModal extends React.Component {
       onClose,
       columns,
       validateState,
-      ignoreEditable
     } = this.props;
     return (
       <div style={ { backgroundColor: '#eeeeee' } } className='modal-content'>
@@ -55,8 +54,6 @@ class CustomInsertModal extends React.Component {
           {
             columns.map((column, i) => {
               const {
-                editable,
-                format,
                 field,
                 name,
                 hiddenOnInsert
@@ -85,6 +82,18 @@ class CustomInsertModal extends React.Component {
       </div>
     );
   }
+}
+
+function nameFilter(createUser, row) {
+  return createUser.memberName;
+}
+
+function nameFormatter(createUser) {
+  return `${createUser.memberName}`;
+}
+
+function dateFormatter(date) {
+  return date.substring(0,10) +" "+ date.substring(11,13)+":"+ date.substring(14,16);
 }
 
 class Domain extends Component {
@@ -176,14 +185,15 @@ class Domain extends Component {
         const { lists } = this.state;
         console.log(lists);
         return (
-            <BootstrapTable data={lists} search={true} multiColumnSearch={true} scrollTop={'Top'}
-            options={options} selectRow={ selectRowProp } insertRow deleteRow exportCSV pagination>
-                <TableHeaderColumn width='100' dataField='id' isKey>ID</TableHeaderColumn>
-                <TableHeaderColumn width='100'dataField='shortName'>약자</TableHeaderColumn>
-                <TableHeaderColumn width='200' dataField='engName'>영문명</TableHeaderColumn>
-                <TableHeaderColumn width='200' dataField='korName'>한글명</TableHeaderColumn>
-                
-            </BootstrapTable>
+          <BootstrapTable data={lists} search={true} multiColumnSearch={true} scrollTop={'Top'}
+          options={options} selectRow={ selectRowProp } insertRow deleteRow exportCSV pagination>
+              <TableHeaderColumn width='100' dataField='id' isKey hidden>ID</TableHeaderColumn>
+              <TableHeaderColumn width='50'dataField='shortName'>약자</TableHeaderColumn>
+              <TableHeaderColumn width='200' dataField='engName'>영문명</TableHeaderColumn>
+              <TableHeaderColumn width='200' dataField='korName'>한글명</TableHeaderColumn>
+              <TableHeaderColumn width='100' dataField='createUser' filterValue={ nameFilter } dataFormat={ nameFormatter }>작성자</TableHeaderColumn>
+              <TableHeaderColumn width='150' dataField='createDate' dataFormat={ dateFormatter }>작성일</TableHeaderColumn>
+          </BootstrapTable>
         );
     }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {BootstrapTable, TableHeaderColumn, InsertButton} from 'react-bootstrap-table';
-import { Link } from 'react-router-dom';
+
 
 // 결재 목록 보여주는 페이지 -> 결재 승인하는 상세페이지로 들어감.
 let m_id;
