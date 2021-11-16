@@ -8,13 +8,19 @@ let m_id;
 function onRowSelect(row, e) {
     m_id = row.approvalId;
 }
-
+function nameFilter(createUser, row) {
+    return createUser.memberName;
+  }
+  
+  function nameFormatter(createUser) {
+    return `${createUser.memberName}`;
+  }
 class Approval extends Component {
 
     state = {
-        lists: [
+        lists: {
             
-        ]
+        }
     };
     loadData = async () => {
         axios
@@ -82,7 +88,7 @@ class Approval extends Component {
                 <TableHeaderColumn width='100'dataField='approvalType'>타입</TableHeaderColumn>
                 <TableHeaderColumn width='200' dataField='approvalStatus'>상태</TableHeaderColumn>
                 <TableHeaderColumn width='200' dataField='wordType'>타입</TableHeaderColumn>
-                <TableHeaderColumn width='200' dataField='createUser'>이름</TableHeaderColumn>
+                <TableHeaderColumn width='100' dataField='createUser' filterValue={ nameFilter } dataFormat={ nameFormatter }>작성자</TableHeaderColumn>
             </BootstrapTable>
     
         );

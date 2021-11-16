@@ -10,12 +10,12 @@ let m_id;
 class ApprovalDetail extends Component {
 
     state = {
-        lists: [
-            
-        ],
-        b_lists:[
+        lists: {
 
-        ]
+        },
+        b_lists:{
+          
+        }
     };
 
     loadData = async () => {

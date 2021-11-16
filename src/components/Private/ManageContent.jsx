@@ -7,7 +7,6 @@ const Title = styled.div`
     font-weight: 500;
     color: ${oc.gray[8]};
     margin-bottom: 1rem;
-    
 `;
 
 const ManageContent = ({title, children}) => (
