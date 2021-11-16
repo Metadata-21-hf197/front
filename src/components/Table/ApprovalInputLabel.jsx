@@ -17,25 +17,23 @@ const Wrapper = styled.div`
 `;
 
 const Label = styled.div`
-    font-size: 1.8rem;
+    font-size: 1rem;
     color: ${oc.gray[6]};
     margin-bottom: 0.25rem;
 `;
 
 const Input = styled.input`
-    width: 20rem;
-    border: 2px solid ${oc.gray[3]};
+    width: 100%;
+    border: 1px solid ${oc.gray[3]};
     outline: none;
     border-radius: 0px;
     line-height: 2.5rem;
-    font-size: 1.5rem;
-    padding: 2px;
+    font-size: 1.4rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     ::placeholder {
-        color: ${oc.gray[1]};
+        color: ${oc.gray[3]};
     }
-    height: 3rem;
 `;
 
 
