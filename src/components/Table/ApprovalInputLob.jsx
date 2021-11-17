@@ -37,6 +37,7 @@ const Input = styled.textarea`
         color: ${oc.gray[1]};
     }
     resize: none;
+    overflow: auto;
 `;
 
 

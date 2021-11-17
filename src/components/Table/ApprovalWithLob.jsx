@@ -31,6 +31,7 @@ const Value = styled.div`
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     height: 6rem;
+    overflow: auto;
 `;
 
 

@@ -84,16 +84,16 @@ class WordUpdate extends Component {
         return (
             <Box1>
                     <ApprovalContent title="기존">
-                        <ApprovalWithLabel label="kor" val={this.current.korName} ></ApprovalWithLabel>
-                        <ApprovalWithLabel label="eng" val={this.current.engName}></ApprovalWithLabel>
-                        <ApprovalWithLabel label="short" val={this.current.shortName}></ApprovalWithLabel>
-                        <ApprovalWithLabel label="meaning" val={this.current.meaning}></ApprovalWithLabel>
+                        <ApprovalWithLabel label="한글명" val={this.current.korName} ></ApprovalWithLabel>
+                        <ApprovalWithLabel label="영문명" val={this.current.engName}></ApprovalWithLabel>
+                        <ApprovalWithLabel label="약자" val={this.current.shortName}></ApprovalWithLabel>
+                        <ApprovalWithLob label="뜻" val={this.current.meaning}></ApprovalWithLob>
                     </ApprovalContent>
                     <ApprovalContent title="수정">
-                        <ApprovalInputLabel label="kor" value={this.state.korName} onChange={this.handleChange} name="korName" type="text"/>
-                        <ApprovalInputLabel label="eng" value={this.state.engName} onChange={this.handleChange} name="engName" type="text"/>
-                        <ApprovalInputLabel label="short" value={this.state.shortName}  onChange={this.handleChange} name="shortName" type="text"/>
-                        <ApprovalInputLabel label="meaning" value={this.state.meaning} onChange={this.handleChange} name="meaning" type="text"/>
+                        <ApprovalInputLabel label="한글명" value={this.state.korName} onChange={this.handleChange} name="korName" type="text"/>
+                        <ApprovalInputLabel label="영문명" value={this.state.engName} onChange={this.handleChange} name="engName" type="text"/>
+                        <ApprovalInputLabel label="약자" value={this.state.shortName}  onChange={this.handleChange} name="shortName" type="text"/>
+                        <ApprovalInputLob label="뜻" value={this.state.meaning} onChange={this.handleChange} name="meaning" type="text"/>
                     </ApprovalContent>
                     <ApprovalContent>
                         <ApprovalButton onClick={this.confirmClick}>수정신청</ApprovalButton>
