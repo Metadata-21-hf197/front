@@ -20,6 +20,8 @@ class ApprovalDetail extends Component {
             console.log(data);
             try{
             this.current={
+              approvalType: data.approval.approvalType,
+              wordType: data.approval.wordType,
               korName: data.basic.korName,
               engName: data.basic.engName,
               shortName: data.basic.shortName,
@@ -33,13 +35,23 @@ class ApprovalDetail extends Component {
               meaning: "새로 생성"
           }
         }
+          if(data.approval.wordType == "TERMWORD"){
+            this.setState({
+              korName: "",
+              engName: "",
+              shortName: "",
+              meaning: "단어 id:"+data.approval.slaveId
+            })
+          }else{
             this.setState({ 
               korName: data.approval.korName,
               engName: data.approval.engName,
               shortName: data.approval.shortName,
               meaning: data.approval.meaning,
             });
-          })
+          }
+        })
+          
           .catch(e => {  // API 호출이 실패한 경우
             console.error(e);  // 에러표시
           });
@@ -81,6 +93,7 @@ class ApprovalDetail extends Component {
     render (){ 
         return (
             <Box1>
+              <h2>{this.current.wordType}: {this.current.approvalType}</h2>
                     <ApprovalContent title="기존">
                         <ApprovalWithLabel label="한글명" val={this.current.korName} ></ApprovalWithLabel>
                         <ApprovalWithLabel label="영문명" val={this.current.engName}></ApprovalWithLabel>
