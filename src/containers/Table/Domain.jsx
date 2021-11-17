@@ -113,7 +113,7 @@ class Domain extends Component {
           .get("/table/domain")
           .then(({ data }) => {
             this.setState({ 
-              lists: data.domainList
+              lists: data.domains
             });
           })
           .catch(e => {  // API 호출이 실패한 경우
