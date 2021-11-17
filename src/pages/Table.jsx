@@ -5,8 +5,6 @@ import { Word, Domain, Term, Approval, WordDetail, DomainDetail, TermDetail} fro
 import { TableWrapper } from '../components/Table';
 import ApprovalDetail from '../containers/Table/ApprovalDetail';
 
-
-
 class Table extends Component {
 
     render() {
