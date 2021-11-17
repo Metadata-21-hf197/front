@@ -174,14 +174,7 @@ class Word extends Component {
       const { history } =this.props;
       try {
             history.push({
-                pathname:'word/detail',
-                props:{
-                    id:row.id,
-                    k:row.korName,
-                    e:row.engName,
-                    s:row.shortName,
-                    m:row.meaning
-                }
+              pathname:'word/detail/'+row.id
             });
         } catch (e) {
             console.log("not move");
