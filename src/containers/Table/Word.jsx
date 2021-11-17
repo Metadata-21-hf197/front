@@ -1,10 +1,14 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import {BootstrapTable, TableHeaderColumn, InsertButton, DeleteButton} from 'react-bootstrap-table';
+import oc from 'open-color';
+import { shadow } from '../../lib/styleUtil';
+import styled from 'styled-components';
+
 
 let m_id, m_kor, m_eng, m_short, m_mean;
 function onRowSelect(row, e) {
-    m_id = row.approvalId;
+    m_id = row.id;
     m_kor = row.korName;
     m_eng = row.engName;
     m_short = row.shortName;
@@ -181,6 +185,17 @@ class Word extends Component {
         }
     }
 
+    onClickUpdate = () => {
+      const { history } =this.props;
+      try {
+            history.push({
+              pathname:'word/update/'+m_id
+            });
+        } catch (e) {
+            console.log("not move");
+        }
+    }
+
     render (){
         const options = {
             exportCSVText: 'export',
@@ -200,6 +215,8 @@ class Word extends Component {
         const { lists } = this.state;
         console.log(lists);
         return (
+          <>
+          <BorderedButton onClick={this.onClickUpdate}>수정</BorderedButton>
           <BootstrapTable data={lists} search={true} multiColumnSearch={true} scrollTop={'Top'}
           options={options} selectRow={ selectRowProp } insertRow deleteRow exportCSV pagination>
               <TableHeaderColumn width='100' dataField='id' isKey hidden>ID</TableHeaderColumn>
@@ -209,9 +226,32 @@ class Word extends Component {
               <TableHeaderColumn width='100' dataField='createUser' filterValue={ nameFilter } dataFormat={ nameFormatter }>작성자</TableHeaderColumn>
               <TableHeaderColumn width='150' dataField='createDate' dataFormat={ dateFormatter }>작성일</TableHeaderColumn>
           </BootstrapTable>
+          </>
         );
     }
 }
 
+const BorderedButton = styled.button`
+    font-weight: 600;
+    color: ${oc.cyan[6]};
+    border: 1px solid ${oc.cyan[6]};
+    padding: 0.5rem;
+    padding-bottom: 0.4rem;
+    cursor: pointer;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: .2s all;
+    margin: 10px;
+    &:hover {
+        background: ${oc.cyan[6]};
+        color: white;
+        ${shadow(1)}
+    }
+
+    &:active {
+        /* 마우스 클릭시 아래로 미세하게 움직임 */
+        transform: translateY(3px);
+    }
+`;
 
 export default Word;

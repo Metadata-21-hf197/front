@@ -1,8 +1,7 @@
 // 결재 상세 페이지
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { ApprovalWithLabel } from '../../components/Table';
-import ApprovalButton from '../../components/Table/ApprovalButton';
+import { ApprovalWithLabel, ApprovalWithLob } from '../../components/Table';
 import ApprovalContent from '../../components/Table/ApprovalContent';
 import axios from 'axios';
 
@@ -22,6 +21,7 @@ class WordDetail extends Component {
 
     loadData = async(props) => {
         u_id = this.props.match.params.id;
+        console.log(u_id);
         axios
           .get(`/table/word/${u_id}`)
           .then(({ data }) => {  

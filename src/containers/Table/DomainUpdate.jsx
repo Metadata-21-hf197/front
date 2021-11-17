@@ -8,7 +8,7 @@ import axios from 'axios';
 
 let u_id;
 
-class WordUpdate extends Component {
+class DomainUpdate extends Component {
 
     state = {
             korName:'',
@@ -24,7 +24,7 @@ class WordUpdate extends Component {
         console.log(this.props);
         u_id = this.props.match.params.id;
         axios
-          .get(`/table/word/${u_id}`)
+          .get(`/table/domain/${u_id}`)
           .then(({ data }) => {
             this.current={
               id: data.word.id,
@@ -107,4 +107,4 @@ const Box1 = styled.div`
     overflow:auto;
 `;
 
-export default WordUpdate;
+export default DomainUpdate;
