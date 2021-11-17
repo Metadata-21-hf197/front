@@ -17,20 +17,22 @@ const Wrapper = styled.div`
 `;
 
 const Label = styled.div`
-    font-size: 1rem;
+    font-size: 1.8rem;
     color: ${oc.gray[6]};
     margin-bottom: 0.25rem;
 `;
 
 const Value = styled.div`
-    width: auto;
+    width: 20rem;
     border: 2px solid ${oc.gray[3]};
     outline: none;
     border-radius: 0px;
-    font-size: 1.6rem;
+    line-height: 2.5rem;
+    font-size: 1.5rem;
+    padding: 2px;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
-    height:auto;
+    height: 3rem;
 `;
 
 export default ApprovalWithLabel;
