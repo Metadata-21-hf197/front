@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { ApprovalWithLabel, ApprovalWithLob } from '../../components/Table';
+import ApprovalButton from '../../components/Table/ApprovalButton';
 import ApprovalContent from '../../components/Table/ApprovalContent';
 import axios from 'axios';
 

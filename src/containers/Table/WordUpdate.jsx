@@ -82,7 +82,7 @@ class WordUpdate extends Component {
         const { location } = this.props;
         const id = location.pathname;
         return (
-            <Box1>
+            <Box1>  
                     <ApprovalContent title="기존">
                         <ApprovalWithLabel label="한글명" val={this.current.korName} ></ApprovalWithLabel>
                         <ApprovalWithLabel label="영문명" val={this.current.engName}></ApprovalWithLabel>
