@@ -20,7 +20,7 @@ class Table extends Component {
                 <Route exact path="/table/term" component={Term}/>
                 <Route path="/table/term/detail" component={TermDetail}/>
                 <Route exact path="/table/approval" component={Approval}/>
-                <Route path="/table/approval/detail" component={ApprovalDetail}/>
+                <Route path="/table/approval/detail/:id" component={ApprovalDetail}/>
             </TableWrapper>
         )
     }
