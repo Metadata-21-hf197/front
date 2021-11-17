@@ -187,7 +187,7 @@ class Domain extends Component {
       const { history } =this.props;
       try {
             history.push({
-              pathname:'word/update/'+m_id
+              pathname:'domain/update/'+m_id
             });
         } catch (e) {
             console.log("not move");

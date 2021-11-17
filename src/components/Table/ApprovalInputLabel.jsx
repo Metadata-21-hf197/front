@@ -36,6 +36,7 @@ const Input = styled.input`
         color: ${oc.gray[1]};
     }
     height: 3rem;
+    overflow: auto;
 `;
 
 

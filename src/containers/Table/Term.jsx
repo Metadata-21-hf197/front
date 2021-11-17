@@ -141,7 +141,7 @@ class Term extends Component {
     //삭제 버튼 아이디 날려서 
     handleDeleteButtonClick = () => { 
         axios
-          .delete(`/word/${m_id}`)
+          .delete(`/term/${m_id}`)
           .then(({ data }) => {
               console.log(data);
               alert('삭제 신청이 되었습니다');
@@ -176,7 +176,7 @@ class Term extends Component {
       const { history } =this.props;
       try {
             history.push({
-              pathname:'word/update/'+m_id
+              pathname:'term/update/'+m_id
             });
         } catch (e) {
             console.log("not move");
