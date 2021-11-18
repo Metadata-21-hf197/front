@@ -6,7 +6,7 @@ import { ApprovalWithLabel, ApprovalWithLob } from '../../components/Table';
 import ApprovalContent from '../../components/Table/ApprovalContent';
 import axios from 'axios';
 
-let m_id,u_id, w_id;
+let m_id=null,u_id, w_id=null;
 
 function onRowSelect(row, e) {
     m_id = row.id;
@@ -30,8 +30,6 @@ class TermDetail extends Component {
 
     loadData = async(props) => {
         u_id = this.props.match.params.id;
-        m_id = null;
-        w_id = null;
         axios
           .get(`/table/term/${u_id}`)
           .then(({ data }) => {  
