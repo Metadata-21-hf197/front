@@ -22,6 +22,7 @@ class WordDetail extends Component {
 
     loadData = async(props) => {
         u_id = this.props.match.params.id;
+        console.log(u_id);
         axios
           .get(`/table/word/${u_id}`)
           .then(({ data }) => {  

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import ManageContent from '../../components/Private/ManageContent';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
-class MyPage extends Component {
+class MyTerm extends Component {
     state = {
         lists: [
 
@@ -14,9 +14,9 @@ class MyPage extends Component {
           .get("/mypage")
           .then(({ data }) => {
             this.setState({ 
-              lists: data.approvalList,
+              lists: data
             });
-            console.log(this.state);
+            console.log(data);
           })
           .catch(e => {  // API 호출이 실패한 경우
             console.error(e);  // 에러표시
@@ -28,22 +28,22 @@ class MyPage extends Component {
     }
 
     render () {
-        const { lists } = this.state;
+        const { lists } = this.state.lists;
         const options = {
           sizePerPage: 5,
           sizePerPageList: [ 5, 10, 15 ]
       };
         return (
-            <ManageContent title="결재목록">
-                <BootstrapTable data={ lists } pagination options={options}>
-                    <TableHeaderColumn width='100' dataField='approvalId' isKey hidden>ID</TableHeaderColumn>
-                    <TableHeaderColumn width='100'dataField='approvalType'>타입</TableHeaderColumn>
-                    <TableHeaderColumn width='100' dataField='approvalStatus'>상태</TableHeaderColumn>
-                    <TableHeaderColumn width='100' dataField='wordType'>타입</TableHeaderColumn>
+            <ManageContent title="용어목록">
+                <BootstrapTable data={lists} pagination options={options}>
+                    <TableHeaderColumn width='100' dataField='id' isKey hidden>ID</TableHeaderColumn>
+                    <TableHeaderColumn width='50'dataField='shortName'>약자</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='engName'>영문명</TableHeaderColumn>
+                    <TableHeaderColumn width='100' dataField='korName'>한글명</TableHeaderColumn>
                 </BootstrapTable>
             </ManageContent>
         );
     }
 }
 
-export default MyPage;
+export default MyTerm;

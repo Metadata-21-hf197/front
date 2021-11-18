@@ -33,9 +33,10 @@ const Input = styled.input`
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     ::placeholder {
-        color: ${oc.gray[3]};
+        color: ${oc.gray[1]};
     }
     height: 3rem;
+    overflow: auto;
 `;
 
 

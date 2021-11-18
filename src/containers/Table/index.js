@@ -7,3 +7,5 @@ export { default as WordUpdate } from './WordUpdate';
 export { default as WordDetail } from './WordDetail';
 export { default as TermDetail } from './TermDetail';
 export { default as DomainDetail } from './DomainDetail';
+export { default as TermUpdate } from './TermUpdate';
+export { default as DomainUpdate } from './DomainUpdate';
