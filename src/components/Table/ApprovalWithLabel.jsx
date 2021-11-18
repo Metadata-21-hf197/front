@@ -33,6 +33,7 @@ const Value = styled.div`
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     height: 3rem;
+    overflow: auto;
 `;
 
 export default ApprovalWithLabel;

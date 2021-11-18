@@ -1,7 +1,7 @@
 // 결재 상세 페이지
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { ApprovalWithLabel, ApprovalInputLabel } from '../../components/Table';
+import { ApprovalWithLabel, ApprovalWithLob } from '../../components/Table';
 import ApprovalButton from '../../components/Table/ApprovalButton';
 import ApprovalContent from '../../components/Table/ApprovalContent';
 import axios from 'axios';
@@ -9,28 +9,49 @@ import axios from 'axios';
 let m_id;
 class ApprovalDetail extends Component {
 
-    state = {
-        lists: {
-
-        },
-        b_lists:{
-          
-        }
-    };
+    state = {};
+    current = {};
 
     loadData = async () => {
-        const { location } = this.props;
-        m_id = location.props.p_id;
-        console.log(m_id);
+        m_id = this.props.match.params.id;
         axios
           .get(`/table/approval/${m_id}`)
           .then(({ data }) => {
-            this.setState({ 
-              lists: data.approval,
-              b_lists: data.basic
-            });
             console.log(data);
-          })
+            try{
+            this.current={
+              approvalType: data.approval.approvalType,
+              wordType: data.approval.wordType,
+              korName: data.basic.korName,
+              engName: data.basic.engName,
+              shortName: data.basic.shortName,
+              meaning: data.basic.meaning,
+            };
+          }catch(e){
+            this.current={
+              korName: "새로 생성",
+              engName: "새로 생성",
+              shortName: "새로 생성",
+              meaning: "새로 생성"
+          }
+        }
+          if(data.approval.wordType == "TERMWORD"){
+            this.setState({
+              korName: "",
+              engName: "",
+              shortName: "",
+              meaning: "단어 id:"+data.approval.slaveId
+            })
+          }else{
+            this.setState({ 
+              korName: data.approval.korName,
+              engName: data.approval.engName,
+              shortName: data.approval.shortName,
+              meaning: data.approval.meaning,
+            });
+          }
+        })
+          
           .catch(e => {  // API 호출이 실패한 경우
             console.error(e);  // 에러표시
           });
@@ -70,23 +91,20 @@ class ApprovalDetail extends Component {
     }
 
     render (){ 
-        const { lists, b_lists } = this.state;
-        console.log(lists);
-        console.log(b_lists);
         return (
             <Box1>
+              <h2>{this.current.wordType}: {this.current.approvalType}</h2>
                     <ApprovalContent title="기존">
-                        <ApprovalWithLabel label="id" val={b_lists.id}></ApprovalWithLabel>
-                        <ApprovalWithLabel label="kor" val={b_lists.korName} ></ApprovalWithLabel>
-                        <ApprovalWithLabel label="eng" val={b_lists.engName}></ApprovalWithLabel>
-                        <ApprovalWithLabel label="short" val={b_lists.shortName}></ApprovalWithLabel>
-                        <ApprovalWithLabel label="meaning" val={b_lists.meaning}></ApprovalWithLabel>
+                        <ApprovalWithLabel label="한글명" val={this.current.korName} ></ApprovalWithLabel>
+                        <ApprovalWithLabel label="영문명" val={this.current.engName}></ApprovalWithLabel>
+                        <ApprovalWithLabel label="약자" val={this.current.shortName}></ApprovalWithLabel>
+                        <ApprovalWithLob label="뜻" val={this.current.meaning}></ApprovalWithLob>
                     </ApprovalContent>
                     <ApprovalContent title="수정">
-                        <ApprovalInputLabel label="kor" value={lists.korName} type="text"/>
-                        <ApprovalInputLabel label="eng" value={lists.engName}  type="text"/>
-                        <ApprovalInputLabel label="short" value={lists.shortName} type="text"/>
-                        <ApprovalInputLabel label="meaning" value={lists.meaning} type="text"/>
+                        <ApprovalWithLabel label="한글명" val={this.state.korName === null ? "변경 없음: 기존 값 유지" : this.state.korName} type="text"/>
+                        <ApprovalWithLabel label="영문명" val={this.state.engName === null ? "변경 없음: 기존 값 유지" : this.state.engName}  type="text"/>
+                        <ApprovalWithLabel label="약자" val={this.state.setState === null ? "변경 없음: 기존 값 유지" : this.state.shortName} type="text"/>
+                        <ApprovalWithLob label="뜻" val={this.state.meaning === null ? "변경 없음: 기존 값 유지" : this.state.meaning} type="text"/>
                     </ApprovalContent>
                     <ApprovalContent>
                         <ApprovalButton onClick={this.confirmClick}>승인</ApprovalButton>

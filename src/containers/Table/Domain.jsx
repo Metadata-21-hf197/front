@@ -113,7 +113,7 @@ class Domain extends Component {
           .get("/table/domain")
           .then(({ data }) => {
             this.setState({ 
-              lists: data.domainList
+              lists: data.domains
             });
           })
           .catch(e => {  // API 호출이 실패한 경우
@@ -187,7 +187,7 @@ class Domain extends Component {
       const { history } =this.props;
       try {
             history.push({
-              pathname:'word/update/'+m_id
+              pathname:'domain/update/'+m_id
             });
         } catch (e) {
             console.log("not move");
