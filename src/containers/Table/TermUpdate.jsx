@@ -71,7 +71,7 @@ class TermUpdate extends Component {
           })
             .then((data) => {
               console.log(data);
-              alert("");
+              alert("수정 신청이 되었습니다");
             })
             .catch((e) => console.log(e));
     }
