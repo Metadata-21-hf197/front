@@ -9,80 +9,9 @@ import axios from 'axios';
 let m_id,u_id;
 
 function onRowSelect(row, e) {
+    console.log(row);
     m_id = row.id;
 }
-class CustomInsertModal extends React.Component {
-
-    handleSaveBtnClick = () => {
-      const { columns,  onClose } = this.props;
-      const newRow = {};
-      columns.forEach((column, i) => {
-        newRow[column.field] = this.refs[column.field].value;
-      }, this);
-      
-      console.log(newRow);
-      fetch('/temr/'+u_id+"/code", {
-        method:"POST",
-        headers:{
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          "shortName":newRow.shortName,
-          "engName":newRow.engName,
-          "korName":newRow.korName
-        }),
-      })
-      .then((res) => {
-        console.log(res);
-        onClose();
-      }).catch((e)=>{
-        console.log(e);
-      })
-    }
-  
-    render() {
-      const {
-        onModalClose,
-        onClose,
-        columns,
-        validateState,
-      } = this.props;
-      return (
-        <div className='modal-content'>
-          <h4>코드 추가</h4>
-          <div>
-            {
-              columns.map((column, i) => {
-                const {
-                  field,
-                  name,
-                  hiddenOnInsert
-                } = column;
-  
-                if (hiddenOnInsert) {
-                  return null;
-                }
-                const error = validateState[field] ?
-                  (<span className='help-block bg-danger'>{ validateState[field] }</span>) :
-                  null;
-                return (
-                  <div className='form-group' key={ field }>
-                    <label>{ name } : </label>
-                    <input ref={ field } type='text' defaultValue={ '' } />
-                    { error }
-                  </div>
-                );
-              })
-            }
-          </div>
-          <div>
-            <button className='btn btn-danger' onClick={ onModalClose }>Leave</button>
-            <button className='btn btn-success' onClick={ () => this.handleSaveBtnClick(columns, onClose) }>Confirm</button>
-          </div>
-        </div>
-      );
-    }
-  }
   
 class TermDetail extends Component {
     state = {
@@ -93,7 +22,7 @@ class TermDetail extends Component {
         createUser: "",
         createDate: "",
         modifyUser: "",
-        modifyDate: ""
+        modifyDate: "",
     };
 
     loadData = async(props) => {
@@ -109,9 +38,10 @@ class TermDetail extends Component {
                 meaning: data.term.meaning,
                 createUser: data.term.createUser.memberName,
                 createDate: data.term.createDate.substring(0,10) +" "+ data.term.createDate.substring(11,13)+":"+ data.term.createDate.substring(14,16),
+                twords: data.twords,
                 words: data.words
                 });
-
+                
                 if(data.term.modifyUser != null){
                     this.setState({
                     modifyUser: data.term.modifyUser.memberName,
@@ -123,7 +53,6 @@ class TermDetail extends Component {
                         modifyDate: " "
                 });
             }
-            console.log(data);
           })
           .catch(e => {  // API 호출이 실패한 경우
             console.error(e);  // 에러표시
@@ -133,28 +62,81 @@ class TermDetail extends Component {
     componentWillMount() {
         this.loadData();
     }
+    
+    handleDeleteButtonClick = () => { 
+      axios
+        .delete(`/term/${u_id}/${m_id}`)
+        .then(({ data }) => {
+            console.log(data);
+            alert('삭제 신청이 되었습니다');
+        })
+        .catch(e => {  // API 호출이 실패한 경우
+          console.error(e);  // 에러표시
+        });
+  }
+
+  handleInsertButtonClick = () => {
+    axios
+        .post(`/term/${u_id}/${m_id}`)
+        .then(({ data }) => {
+            console.log(data);
+            alert('단어 추가 신청이 되었습니다');
+        })
+        .catch(e => {  // API 호출이 실패한 경우
+          console.error(e);  // 에러표시
+        });
+}
+
+createCustomInsertButton = () => {
+    return (
+      <InsertButton
+        btnText='생성신청'
+        btnContextual='btn-warning'
+        className='my-custom-class'
+        btnGlyphicon='glyphicon-edit'
+        onClick={ this.handleInsertButtonClick }/>
+    );
+}
+
+  createCustomDeleteButton = () => {
+      return (
+        <DeleteButton
+          btnText='삭제신청'
+          btnContextual='btn-warning'
+          className='my-custom-class'
+          btnGlyphicon='glyphicon-edit'
+          onClick={this.handleDeleteButtonClick}
+          />
+      );
+  }
 
     render (){
         const options = {
-            insertBtn: this.createCustomInsertButton, 
-            deleteBtn: this.createCustomDeleteButton,
-            sizePerPage: 10,
-            insertModal:this.createCustomModal
+            deleteBtn: this.createCustomDeleteButton
         };
+        const optionsW = {
+          insertBtn: this.createCustomInsertButton, 
+            insertBtn: this.createCustomInsertButton, 
+          insertBtn: this.createCustomInsertButton, 
+          sizePerPage: 5,
+          sizePerPageList: [ 5, 10 ],
+      };
 
         const selectRowProp = {
             mode:'radio',
             onSelect:onRowSelect
         };
         let lists = {};
+        let listsW = {};
         try{
-        lists = this.state.words;
+        lists = this.state.twords;
+        listsW = this.state.words;
         }catch(e){
         }
 
         return (
             <Box1>
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <ApprovalContent title="기존">
                         <ApprovalWithLabel label="한글명" val={this.state.korName}></ApprovalWithLabel>
                         <ApprovalWithLabel label="영문명" val={this.state.engName}></ApprovalWithLabel>
@@ -166,9 +148,18 @@ class TermDetail extends Component {
                         <ApprovalWithLabel label="수정자" val={this.state.modifyUser}></ApprovalWithLabel>
                     </ApprovalContent>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-5">
                     <h3>단어 목록</h3>
-                    <BootstrapTable data={lists} scrollTop={'Top'} options={options} selectRow={ selectRowProp } insertRow deleteRow>
+                    <BootstrapTable data={lists} scrollTop={'Top'} options={options} selectRow={ selectRowProp } deleteRow>
+                        <TableHeaderColumn width='100' dataField='id' isKey hidden>ID</TableHeaderColumn>
+                        <TableHeaderColumn width='50'dataField='shortName'>약자</TableHeaderColumn>
+                        <TableHeaderColumn width='200' dataField='engName'>영문명</TableHeaderColumn>
+                        <TableHeaderColumn width='200' dataField='korName'>한글명</TableHeaderColumn>
+                    </BootstrapTable>
+                </div>
+                <div class="col-sm-5">
+                    <h3>단어 추가</h3>
+                    <BootstrapTable data={listsW} scrollTop={'Top'} options={optionsW} search={true} multiColumnSearch={true} selectRow={ selectRowProp } insertRow pagination>
                         <TableHeaderColumn width='100' dataField='id' isKey hidden>ID</TableHeaderColumn>
                         <TableHeaderColumn width='50'dataField='shortName'>약자</TableHeaderColumn>
                         <TableHeaderColumn width='200' dataField='engName'>영문명</TableHeaderColumn>
@@ -182,6 +173,7 @@ class TermDetail extends Component {
 }
 
 const Box1 = styled.div`
+    width: 1400px;
     overflow:auto;
 `;
 
