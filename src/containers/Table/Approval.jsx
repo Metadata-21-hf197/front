@@ -29,6 +29,7 @@ class Approval extends Component {
         ]
     };
     loadData = async () => {
+      m_id=null;
         axios
           .get("/table/approval")
           .then(({ data }) => {
@@ -48,6 +49,7 @@ class Approval extends Component {
 
     handleUpdateButtonClick = () => {
         const { history } = this.props;
+        if(m_id == null) return;
         try {
             history.push({
                 pathname:'approval/detail/'+m_id,

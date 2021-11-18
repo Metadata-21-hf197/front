@@ -5,14 +5,9 @@ import oc from 'open-color';
 import { shadow } from '../../lib/styleUtil';
 import styled from 'styled-components';
 
-let m_id, m_kor, m_eng, m_short, m_mean;
+let m_id=null;
 function onRowSelect(row, e) {
     m_id = row.id;
-    m_kor = row.korName;
-    m_eng = row.engName;
-    m_short = row.shortName;
-    m_mean = row.meaning;
-    console.log(m_id,m_kor,m_eng,m_short,m_mean);
 }
 
 class CustomInsertModal extends React.Component {
