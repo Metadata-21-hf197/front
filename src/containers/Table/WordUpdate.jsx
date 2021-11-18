@@ -73,6 +73,7 @@ class WordUpdate extends Component {
             }),
           })
             .then((data) => {
+              alert("수정 신청이 되었습니다");
               console.log(data);
             })
             .catch((e) => console.log(e));
