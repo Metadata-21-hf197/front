@@ -62,8 +62,6 @@ class ApprovalDetail extends Component {
     }
     confirmClick = () => {
         const {history} = this.props;
-        //결재 승인 버튼
-        // /word/{wordId} put
         axios
           .put(`/approval/confirm/${m_id}`)
           .then(({ data }) => {

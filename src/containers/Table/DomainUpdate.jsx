@@ -27,17 +27,16 @@ class DomainUpdate extends Component {
           .get(`/table/domain/${u_id}`)
           .then(({ data }) => {
             this.current={
-              id: data.word.id,
-              korName: data.word.korName,
-              engName: data.word.engName,
-              shortName: data.word.shortName,
-              meaning: data.word.meaning,
+              korName: data.domain.korName,
+              engName: data.domain.engName,
+              shortName: data.domain.shortName,
+              meaning: data.domain.meaning,
             };
             this.setState({ 
-              korName: data.word.korName,
-              engName: data.word.engName,
-              shortName: data.word.shortName,
-              meaning: data.word.meaning,
+              korName: data.domain.korName,
+              engName: data.domain.engName,
+              shortName: data.domain.shortName,
+              meaning: data.domain.meaning,
             });
           })
           .catch(e => {  // API 호출이 실패한 경우
@@ -57,10 +56,7 @@ class DomainUpdate extends Component {
     }
     
     confirmClick = () => {
-        //결재 승인 버튼
-        // /word/{wordId} put
-        
-        fetch(`/word/${u_id}`, {
+        fetch(`/domain/${u_id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -73,6 +69,7 @@ class DomainUpdate extends Component {
             }),
           })
             .then((data) => {
+              alert("수정 신청이 되었습니다");
               console.log(data);
             })
             .catch((e) => console.log(e));
