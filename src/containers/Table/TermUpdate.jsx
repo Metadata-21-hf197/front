@@ -27,17 +27,17 @@ class TermUpdate extends Component {
           .get(`/table/term/${u_id}`)
           .then(({ data }) => {
             this.current={
-              id: data.word.id,
-              korName: data.word.korName,
-              engName: data.word.engName,
-              shortName: data.word.shortName,
-              meaning: data.word.meaning,
+              id: data.term.id,
+              korName: data.term.korName,
+              engName: data.term.engName,
+              shortName: data.term.shortName,
+              meaning: data.term.meaning,
             };
             this.setState({ 
-              korName: data.word.korName,
-              engName: data.word.engName,
-              shortName: data.word.shortName,
-              meaning: data.word.meaning,
+              korName: data.term.korName,
+              engName: data.term.engName,
+              shortName: data.term.shortName,
+              meaning: data.term.meaning,
             });
           })
           .catch(e => {  // API 호출이 실패한 경우
@@ -57,10 +57,7 @@ class TermUpdate extends Component {
     }
     
     confirmClick = () => {
-        //결재 승인 버튼
-        // /word/{wordId} put
-        
-        fetch(`/word/${u_id}`, {
+        fetch(`/term/${u_id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -74,13 +71,12 @@ class TermUpdate extends Component {
           })
             .then((data) => {
               console.log(data);
+              alert("");
             })
             .catch((e) => console.log(e));
     }
 
-    render (){
-        const { location } = this.props;
-        const id = location.pathname;
+    render (){  
         return (
             <Box1>
                     <ApprovalContent title="기존">

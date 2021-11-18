@@ -78,7 +78,7 @@ class Approval extends Component {
         };
     
         const selectRowProp = {
-            mode:'checkbox',
+            mode:'radio',
             onSelect: onRowSelect
         };
     

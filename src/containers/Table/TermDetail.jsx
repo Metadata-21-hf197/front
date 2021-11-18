@@ -6,11 +6,14 @@ import { ApprovalWithLabel, ApprovalWithLob } from '../../components/Table';
 import ApprovalContent from '../../components/Table/ApprovalContent';
 import axios from 'axios';
 
-let m_id,u_id;
+let m_id,u_id, w_id;
 
 function onRowSelect(row, e) {
-    console.log(row);
     m_id = row.id;
+}
+
+function onRowSelectW(row, e) {
+  w_id = row.id;
 }
   
 class TermDetail extends Component {
@@ -27,7 +30,8 @@ class TermDetail extends Component {
 
     loadData = async(props) => {
         u_id = this.props.match.params.id;
-        console.log(this.props.match.params.id);
+        m_id = null;
+        w_id = null;
         axios
           .get(`/table/term/${u_id}`)
           .then(({ data }) => {  
@@ -38,6 +42,7 @@ class TermDetail extends Component {
                 meaning: data.term.meaning,
                 createUser: data.term.createUser.memberName,
                 createDate: data.term.createDate.substring(0,10) +" "+ data.term.createDate.substring(11,13)+":"+ data.term.createDate.substring(14,16),
+                checkwords: data.term.words,
                 twords: data.twords,
                 words: data.words
                 });
@@ -63,11 +68,10 @@ class TermDetail extends Component {
         this.loadData();
     }
     
-    handleDeleteButtonClick = () => { 
+    handleDeleteButtonClick = () => {
       axios
         .delete(`/term/${u_id}/${m_id}`)
         .then(({ data }) => {
-            console.log(data);
             alert('삭제 신청이 되었습니다');
         })
         .catch(e => {  // API 호출이 실패한 경우
@@ -76,10 +80,15 @@ class TermDetail extends Component {
   }
 
   handleInsertButtonClick = () => {
+    try{
+      if(this.state.checkwords.includes(w_id)){
+        alert("이미 있는 단어입니다");
+        return;
+      }
+    }catch(e){}; 
     axios
-        .post(`/term/${u_id}/${m_id}`)
+        .post(`/term/${u_id}/${w_id}`)
         .then(({ data }) => {
-            console.log(data);
             alert('단어 추가 신청이 되었습니다');
         })
         .catch(e => {  // API 호출이 실패한 경우
@@ -124,12 +133,19 @@ createCustomInsertButton = () => {
 
         const selectRowProp = {
             mode:'radio',
-            onSelect:onRowSelect
+            onSelect: onRowSelect
         };
+
+        const selectRowPropW = {
+          mode:'radio',
+          onSelect: onRowSelectW
+      };
+
         let lists = {};
         let listsW = {};
         try{
         lists = this.state.twords;
+        
         listsW = this.state.words;
         }catch(e){
         }
@@ -159,7 +175,7 @@ createCustomInsertButton = () => {
                 </div>
                 <div class="col-sm-5">
                     <h3>단어 추가</h3>
-                    <BootstrapTable data={listsW} scrollTop={'Top'} options={optionsW} search={true} multiColumnSearch={true} selectRow={ selectRowProp } insertRow pagination>
+                    <BootstrapTable data={listsW} scrollTop={'Top'} options={optionsW} search={true} multiColumnSearch={true} selectRow={ selectRowPropW } insertRow pagination>
                         <TableHeaderColumn width='100' dataField='id' isKey hidden>ID</TableHeaderColumn>
                         <TableHeaderColumn width='50'dataField='shortName'>약자</TableHeaderColumn>
                         <TableHeaderColumn width='200' dataField='engName'>영문명</TableHeaderColumn>
@@ -167,7 +183,6 @@ createCustomInsertButton = () => {
                     </BootstrapTable>
                 </div>
                 </Box1>
-                
         )
     }
 }
