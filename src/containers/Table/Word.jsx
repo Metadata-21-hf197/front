@@ -35,7 +35,7 @@ class CustomInsertModal extends React.Component {
         "shortName":newRow.shortName,
         "engName":newRow.engName,
         "korName":newRow.korName,
-        "meaning":newRow.meaning
+        "meaning":newRow.meaning 
       }),
     })
     .then((res) => {
@@ -54,8 +54,8 @@ class CustomInsertModal extends React.Component {
       validateState,
     } = this.props;
     return (
-      <div style={ { backgroundColor: '#eeeeee' } } className='modal-content'>
-        <h2 style={ { color: 'red' } }>Custom Insert Modal</h2>
+      <div style={ { backgroundColor: 'white' } } className='modal-content'>
+        <h2 style={ { color: oc.cyan[6] } }>생성내역</h2>
         <div>
           {
             columns.map((column, i) => {
@@ -66,6 +66,7 @@ class CustomInsertModal extends React.Component {
               } = column;
 
               if (hiddenOnInsert) {
+
                 return null;
               }
               const error = validateState[field] ?
@@ -219,12 +220,13 @@ class Word extends Component {
           <BorderedButton onClick={this.onClickUpdate}>수정</BorderedButton>
           <BootstrapTable data={lists} search={true} multiColumnSearch={true} scrollTop={'Top'}
           options={options} selectRow={ selectRowProp } insertRow deleteRow exportCSV pagination>
-              <TableHeaderColumn width='100' dataField='id' isKey hidden>ID</TableHeaderColumn>
+              <TableHeaderColumn width='100' dataField='id' isKey hidden hiddenOnInsert>ID</TableHeaderColumn>
               <TableHeaderColumn width='50'dataField='shortName'>약자</TableHeaderColumn>
               <TableHeaderColumn width='200' dataField='engName'>영문명</TableHeaderColumn>
               <TableHeaderColumn width='200' dataField='korName'>한글명</TableHeaderColumn>
-              <TableHeaderColumn width='100' dataField='createUser' filterValue={ nameFilter } dataFormat={ nameFormatter }>작성자</TableHeaderColumn>
-              <TableHeaderColumn width='150' dataField='createDate' dataFormat={ dateFormatter }>작성일</TableHeaderColumn>
+              <TableHeaderColumn width='200' dataField='meaning' hidden>의미</TableHeaderColumn>
+              <TableHeaderColumn width='100' dataField='createUser' filterValue={ nameFilter } dataFormat={ nameFormatter } hiddenOnInsert>작성자</TableHeaderColumn>
+              <TableHeaderColumn width='150' dataField='createDate' dataFormat={ dateFormatter } hiddenOnInsert>작성일</TableHeaderColumn>
           </BootstrapTable>
           </>
         );
