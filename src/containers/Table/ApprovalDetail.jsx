@@ -20,8 +20,6 @@ class ApprovalDetail extends Component {
             console.log(data);
             try{
             this.current={
-              approvalType: data.approval.approvalType,
-              wordType: data.approval.wordType,
               korName: data.basic.korName,
               engName: data.basic.engName,
               shortName: data.basic.shortName,
@@ -37,13 +35,17 @@ class ApprovalDetail extends Component {
         }
           if(data.approval.wordType == "TERMWORD"){
             this.setState({
-              korName: "",
-              engName: "",
-              shortName: "",
+              approvalType: data.approval.approvalType,
+              wordType: data.approval.wordType,
+              korName: "단어 id:"+data.approval.slaveId,
+              engName: "단어 id:"+data.approval.slaveId,
+              shortName: "단어 id:"+data.approval.slaveId,
               meaning: "단어 id:"+data.approval.slaveId
             })
           }else{
             this.setState({ 
+              approvalType: data.approval.approvalType,
+              wordType: data.approval.wordType,
               korName: data.approval.korName,
               engName: data.approval.engName,
               shortName: data.approval.shortName,
@@ -91,7 +93,7 @@ class ApprovalDetail extends Component {
     render (){ 
         return (
             <Box1>
-              <h2>{this.current.wordType}: {this.current.approvalType}</h2>
+              <h2>{this.state.wordType}: {this.state.approvalType}</h2>
                     <ApprovalContent title="기존">
                         <ApprovalWithLabel label="한글명" val={this.current.korName} ></ApprovalWithLabel>
                         <ApprovalWithLabel label="영문명" val={this.current.engName}></ApprovalWithLabel>
